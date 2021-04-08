@@ -28,11 +28,15 @@
   &.lg {
     font-size: var(--fs-medium);
   }
+
+  &:disabled {
+    background-color: gray;
+  }
 }
 
 .btn-primary {
-  border-color: var(--brand);
-  background-color: var(--brand);
+  border-color: var(--blue);
+  background-color: var(--blue);
   color: var(--white);
 
   &:hover {
@@ -41,18 +45,18 @@
 }
 
 .btn-secondary {
-  border-color: var(--brand);
-  color: var(--brand);
+  border-color: var(--blue);
+  color: var(--blue);
 
   &:hover {
-    background-color: var(--brand);
+    background-color: var(--blue);
     color: var(--white);
     opacity: 0.8;
   }
 }
 
 .btn-text {
-  color: var(--brand);
+  color: var(--blue);
 
   &:hover {
     text-decoration: underline;

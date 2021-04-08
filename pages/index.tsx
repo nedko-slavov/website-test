@@ -1,4 +1,4 @@
-import { Container } from '../components/layout';
+import { Container } from '../components/grid';
 
 const Home: React.FC = () => (
   <main>

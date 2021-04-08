@@ -1,15 +1,16 @@
-import { Column, Container, Row } from '../../components/layout';
+import { FC } from 'react';
+import { Column, Container, Row } from '../../components/grid';
 import LoginForm from '../../components/forms/LoginForm';
 
-// Sincere@april.biz
-
-const LoginPage: React.ReactNode = () => {
+const LoginPage: FC = () => {
   return (
-    <Container>
-      <h3>Login</h3>
+    <Container className="spacing-top-lg">
+      <div className="spacing-bottom">
+        <h3>Login</h3>
+      </div>
 
       <Row>
-        <Column colWidth="6">
+        <Column colWidth="4">
           <LoginForm />
         </Column>
       </Row>

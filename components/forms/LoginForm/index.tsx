@@ -1,59 +1,65 @@
-// import React, { useState, useCallback, PropsWithChildren } from 'react';
+import React, { useState, useContext } from 'react';
+import { useQuery } from '@apollo/client';
+import { USERS } from '../../../graphql/queries';
+import { UserContext } from '../../../providers/UserProvider';
+import router from 'next/router';
 
-// import Users from './users';
-import { Formik, Form, Field, ErrorMessage, FormikErrors, FieldAttributes } from 'formik';
-
-import PropTypes from 'prop-types';
-
-// const Component: React.FC = (props): JSX.Element => {
-//   return <div>{props.name}</div>;
-// };
-
-// Component.propTypes = {
-//   name: PropTypes.string.isRequired,
-// };
-
-interface FormValues {
+interface User {
+  id: string;
+  name: string;
+  username: string;
   email: string;
-  password: string;
+  phone: string;
+  website: string;
 }
 
+const iniState = {
+  id: '',
+  name: '',
+  username: '',
+  email: '',
+  phone: '',
+  website: '',
+};
+
 const LoginForm: React.FC = () => {
+  const [selectedUser, setUser] = useState(iniState);
+  const { loading, error, data } = useQuery(USERS);
+  const { setUserContext } = useContext(UserContext);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <p>`Error! ${error}`</p>;
+
+  const users = data && data.users.data;
+
+  const handleSubmit = (e: React.FormEvent): void => {
+    e.preventDefault();
+    setUserContext(selectedUser);
+    router.push('/photos');
+  };
+
+  const handleUserChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    const user = users.find((user: User) => user.id === e.target.value);
+    setUser(user);
+  };
+
   return (
-    <>
-      <div>test</div>
-      {/* <Component name="sdadas" />
-      <Formik
-        initialValues={{ email: '', password: '' }}
-        validate={(values) => {
-          const errors: FormikErrors<FormValues> = {};
-          if (!values.email) {
-            errors.email = 'Required';
-          } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-            errors.email = 'Invalid email address';
-          }
-          return errors;
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <Field type="email" name="email" />
-            <ErrorMessage name="email" component="div" />
-            <Field type="password" name="password" />
-            <ErrorMessage name="password" component="div" />
-            <button className="btn-primary" type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
-          </Form>
-        )}
-      </Formik> */}
-    </>
+    <form className="login" onSubmit={handleSubmit}>
+      <div className="form-group">
+        <select onChange={handleUserChange} value={selectedUser.id}>
+          <option>Select user</option>
+          {users.map((user: User) => (
+            <option key={user.id} value={user.id}>
+              {user.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <button type="submit" className="btn-primary">
+        Login
+      </button>
+    </form>
   );
 };
 

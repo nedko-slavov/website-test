@@ -6,6 +6,7 @@ const USERS = gql`
       data {
         id
         name
+        username
         email
         phone
         website

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from '../../components/layout';
+import { Container } from '../../components/grid';
 import Albums from '../../components/albums';
 
 const AlbumsPage = (): React.ReactNode => {

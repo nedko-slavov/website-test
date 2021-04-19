@@ -1,1 +1,11 @@
 // Put theme specific code here
+
+body.theme-dark {
+  color: var(--white);
+  background-color: var(--background);;
+}
+
+body.theme-light {
+  color: var(--black);
+  background-color: var(--white);
+}

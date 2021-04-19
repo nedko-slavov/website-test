@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from '../../components/ui';
 
 interface AlbumProps {
   id: string;
@@ -9,7 +10,7 @@ interface AlbumProps {
 }
 
 const Album = ({ id, title, onSelect, selectedAlbum }: AlbumProps): JSX.Element => {
-  console.log('Render Album', id);
+  // console.log('Render Album', id);
 
   const handleSelect = (): void => {
     onSelect(id);
@@ -22,9 +23,9 @@ const Album = ({ id, title, onSelect, selectedAlbum }: AlbumProps): JSX.Element 
     <div className="album" style={selectedStyles}>
       {title}
 
-      <button type="button" className="btn-primary" onClick={handleSelect}>
-        select
-      </button>
+      <Button type="button" kind="primary" onClick={handleSelect}>
+        Select
+      </Button>
     </div>
   );
 };

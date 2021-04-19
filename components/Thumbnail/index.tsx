@@ -6,7 +6,7 @@ interface ThumbnailProps {
 }
 
 const Thumbnail = ({ thumbnailUrl, title }: ThumbnailProps): JSX.Element => (
-  <div className="col-4 thumbnail-wrapper">
+  <div className="col-3 thumbnail-wrapper">
     <img src={thumbnailUrl} alt="" />
     <h5>{title}</h5>
   </div>

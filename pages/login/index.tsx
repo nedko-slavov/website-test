@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Column, Container, Row } from '../../components/grid';
+import { Column, Container, Row } from '../../components/ui/grid';
 import LoginForm from '../../components/forms/LoginForm';
 
 const LoginPage: FC = () => {

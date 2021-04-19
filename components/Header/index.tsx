@@ -1,6 +1,6 @@
 import { useContext, FC } from 'react';
 import { UserContext } from '../../providers/UserProvider';
-import { Container } from '../grid';
+import { Container } from '../ui/grid';
 import UserInfo from './UserInfo';
 import Navigation from './Navigation';
 

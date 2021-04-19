@@ -1,6 +1,6 @@
-import { Container } from '../../../components/grid';
+import { Container } from '../../../components/ui/grid';
 import { FC } from 'react';
-import UserForm from '../../../components/forms/UserForm';
+import { CreateUserForm } from '../../../components/forms/UserForm';
 
 const CreateUserPage: FC = () => {
   return (
@@ -9,7 +9,7 @@ const CreateUserPage: FC = () => {
         <h3>Create User</h3>
       </div>
 
-      <UserForm />
+      <CreateUserForm />
     </Container>
   );
 };

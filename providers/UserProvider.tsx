@@ -26,18 +26,30 @@ type IniState = {
   website: string;
 };
 
+const isWrongSymbolsIncluded = /\D+/g;
+
+const formatPhone = (string: string): string => {
+  if (string) {
+    return string.replace(isWrongSymbolsIncluded, ' ');
+  }
+
+  return string;
+};
+
 const setUserToLocalStarage = (setUserContext: (value: IniState) => void): void => {
   const user = localStorage.getItem('selectedUserContext');
   if (user !== null) {
     const { id, name, username, email, phone, website } = JSON.parse(user);
+    const formatedPhone = formatPhone(phone);
+    const emailToLowerCase = email.toLowerCase();
 
     setUserContext({
-      id: id,
-      name: name,
-      username: username,
-      email: email,
-      phone: phone,
-      website: website,
+      id,
+      name,
+      username,
+      email: emailToLowerCase,
+      phone: formatedPhone,
+      website,
     });
   }
 };
@@ -46,7 +58,6 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = (props) => 
   const [selectedUserContext, setUserContext] = useState<IniState>(iniState);
 
   useEffect(() => {
-    // setUserContext({});
     setUserToLocalStarage(setUserContext);
   }, [selectedUserContext.id, setUserContext]);
 

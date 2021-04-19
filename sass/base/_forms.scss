@@ -39,10 +39,29 @@ select {
     opacity: 0.6;
     cursor: not-allowed;
   }
+
+}
+
+.theme-dark {
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="password"],
+  textarea,
+  select {
+    border-color: var(--blue);
+  }
 }
 
 .form-group {
   margin-bottom: 2em;
+
+  &.theme-dark {
+    .control-label {
+      color: var(--white);
+    }
+  }
 }
 
 .control-label {
@@ -81,6 +100,9 @@ select {
 }
 
 .has-error {
+  margin-top: 0.75em;
   opacity: 1;
+  font-size: 0.9em;
+  font-weight: 600;
   color: var(--error);
 }

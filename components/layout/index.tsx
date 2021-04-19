@@ -7,10 +7,10 @@ interface LayoutProps {
 }
 
 const Layout: FC<LayoutProps> = ({ children }) => (
-  <div>
+  <>
     <Header />
     {children}
-  </div>
+  </>
 );
 
 Layout.propTypes = {

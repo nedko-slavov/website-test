@@ -2,6 +2,7 @@ import React, { FC, useRef, useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { PHOTOS } from '../../graphql/queries';
 import Thumbnail from '../../components/Thumbnail';
+import { Button } from '../../components/ui';
 
 interface Photo {
   id: string;
@@ -48,11 +49,12 @@ const PhotosPage: FC = () => {
   if (error) return <p>`Error! ${error}`</p>;
 
   const photos = data.photos.data;
+  const photosTotalCount = data.photos.meta.totalCount;
 
   return (
     <div className="spacing-top">
       <div className="container">
-        <h3>Photos page</h3>
+        <h3>Photos total: {photosTotalCount}</h3>
       </div>
 
       <div id="list" className="container">
@@ -62,9 +64,10 @@ const PhotosPage: FC = () => {
           ))}
         </div>
 
-        <button
-          className="btn-primary"
+        <Button
+          type="button"
           ref={setButtonRef}
+          kind="primary"
           id="buttonLoadMore"
           onClick={() =>
             fetchMore({
@@ -75,7 +78,7 @@ const PhotosPage: FC = () => {
           }
         >
           load more
-        </button>
+        </Button>
       </div>
     </div>
   );

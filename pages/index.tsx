@@ -1,11 +1,9 @@
-import { Container } from '../components/grid';
+import { Container } from '../components/ui/grid';
 
 const Home: React.FC = () => (
-  <main>
-    <Container>
-      <h1>Hello</h1>
-    </Container>
-  </main>
+  <Container>
+    <h1>Hello</h1>
+  </Container>
 );
 
 export default Home;

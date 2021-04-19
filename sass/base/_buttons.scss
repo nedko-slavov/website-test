@@ -1,6 +1,7 @@
 .btn-primary,
 .btn-secondary,
-.btn-text {
+.btn-text,
+.btn-warning {
   display: inline-block;
   padding: 0.5em 1em;
   margin: 0;
@@ -18,7 +19,7 @@
   text-decoration: none;
   transition: all ease-in-out 0.3s;
 
-  &:last-of-type {
+  &:last-child {
     margin-right: 0;
   }
 
@@ -37,6 +38,16 @@
 .btn-primary {
   border-color: var(--blue);
   background-color: var(--blue);
+  color: var(--white);
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.btn-warning {
+  border-color: var(--error);
+  background-color: var(--error);
   color: var(--white);
 
   &:hover {

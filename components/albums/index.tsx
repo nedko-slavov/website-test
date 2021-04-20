@@ -1,7 +1,9 @@
-import { memo, useState, useCallback } from 'react';
+import React, { memo, useState, useCallback } from 'react';
 import { useQuery } from '@apollo/client';
 import { ALBUMS } from '../../graphql/queries';
 import Album from './Album';
+import AlbumsSearch from './AlbumsSearch';
+import { Row, Column } from '../ui/grid';
 
 const Albums = (): JSX.Element => {
   const [selectedAlbum, setSelectedAlbum] = useState('');
@@ -33,6 +35,11 @@ const Albums = (): JSX.Element => {
 
   return (
     <>
+      <Row>
+        <Column colWidth="5" className="spacing-bottom">
+          <AlbumsSearch />
+        </Column>
+      </Row>
       <h4>{selectedAlbumText()}</h4>
       {albums.map((album: { id: string; title: string }) => (
         <Album

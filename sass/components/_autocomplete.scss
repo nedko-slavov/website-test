@@ -1,0 +1,29 @@
+.autocomplete {
+  position: relative;
+
+  input {
+    font-size: 0.85em;
+  }
+
+  .results-list {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    left: 0;
+    background-color: var(--true-white);
+    color: var(--black);
+  }
+
+  .item {
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    font-size: 0.85em;
+
+    &:hover {
+      color: var(--white);
+      background-color: var(--blue);
+    }
+
+    &:last-of-type { margin-bottom: 0; }
+  }
+}

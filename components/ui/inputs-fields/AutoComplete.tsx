@@ -1,146 +1,224 @@
-import React, { useState, useEffect, FC } from 'react';
+import { useCallback, FC, useRef, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
-const Search: FC = () => {
-  const [searchTerm, updateSearchTerm] = useState('');
-  const [filteredResults, updateFilteredResults] = useState([]);
-  const [searchResults, updateSearchResults] = useState([]);
-  const [displayResults, updateDisplayResults] = useState(false);
-  const [focusIndex, updateFocusIndex] = useState(-1);
-  const linkRefs = [];
-  const keys = {
-    ENTER: 13,
-    UP: 38,
-    DOWN: 40,
+interface SearchListResult {
+  id: string;
+  title: string;
+}
+
+type AutoComplete = {
+  value?: string;
+  results: SearchListResult[];
+  onChange: (e: string) => void;
+};
+
+const AutoComplete: FC<AutoComplete> = ({ value, results, onChange }) => {
+  const [listVisibility, setListVisibility] = useState(false);
+  const autocompleteRef = useRef<HTMLDivElement>(null);
+
+  const handleChange = useCallback(
+    (e: React.FormEvent<HTMLInputElement>): void => {
+      onChange(e.currentTarget.value);
+    },
+    [onChange]
+  );
+
+  const handleFocus = (): void => {
+    if (results.length > 0) setListVisibility(true);
   };
 
   useEffect(() => {
-    const getSearchResults = async () => {
-      // ⚠️ This is where you should pull data in from your server
-      const searchResultsResponse = await getSearchResults();
-
-      updateSearchResults(searchResultsResponse);
+    const handleClickOutside = (event: MouseEvent): void => {
+      if (
+        autocompleteRef.current &&
+        event.target instanceof Node &&
+        !autocompleteRef.current?.contains(event.target)
+      ) {
+        setListVisibility(false);
+      }
     };
 
-    getSearchResults();
-  }, []);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [autocompleteRef, onChange]);
 
-  const updateSearch = (e) => {
-    updateSearchTerm(e.target.value);
-    updateFilteredResults(
-      searchResults.filter((result) => result.title.match(new RegExp(e.target.value, 'gi')))
-    );
-  };
-
-  const hideAutoSuggest = (e) => {
-    e.persist();
-
-    if (e.relatedTarget && e.relatedTarget.className === 'autosuggest-link') {
-      return;
-    }
-
-    updateDisplayResults(true);
-    updateFocusIndex(-1);
-  };
-
-  const showAutoSuggest = () => {
-    updateDisplayResults(false);
-  };
-
-  const handleNavigation = (e) => {
-    switch (e.keyCode) {
-      case keys.ENTER:
-        if (focusIndex !== -1) {
-          window.open(linkRefs[focusIndex].href);
-        }
-
-        hideAutoSuggest(e);
-        break;
-      case keys.UP:
-        if (focusIndex > -1) {
-          updateFocusIndex(focusIndex - 1);
-        }
-        break;
-      case keys.DOWN:
-        if (focusIndex < filteredResults.length - 1) {
-          updateFocusIndex(focusIndex + 1);
-        }
-        break;
-    }
-  };
-
-  const SearchResults = () => {
-    const Message = ({ text }) => (
-      <div className="search-results-message">
-        <h2>{text}</h2>
-        <hr />
-      </div>
-    );
-
-    if (!displayResults) {
-      return null;
-    }
-
-    if (!searchResults.length) {
-      return <Message text="Loading search results" />;
-    }
-
-    if (!searchTerm) {
-      return <Message text="Try to search for something..." />;
-    }
-
-    if (!filteredResults.length) {
-      return <Message text="We couldn't find anything for your search term." />;
-    }
-
-    return (
-      <ul className="search-results">
-        {filteredResults.map((article, index) => (
-          <li key={index}>
-            {/* ⚠️ You may want to outsource this part to make the component less heavy */}
-            result ${index}
-          </li>
-        ))}
-      </ul>
-    );
-  };
+  useEffect(() => {
+    if (results.length > 0) setListVisibility(true);
+  }, [results]);
 
   return (
-    <section className="search">
-      <h1>Search {searchTerm.length ? `results for: ${searchTerm}` : null}</h1>
+    <div className="autocomplete" ref={autocompleteRef}>
       <input
         type="text"
-        placeholder="Search for tutorials..."
-        onKeyUp={updateSearch}
-        onKeyDown={handleNavigation}
-        onBlur={hideAutoSuggest}
-        onFocus={showAutoSuggest}
+        value={value}
+        placeholder="search"
+        onChange={handleChange}
+        onFocus={handleFocus}
       />
-      <ul className="search-suggestions">
-        {!displayResults && searchTerm && (
-          <li
-            key="-1"
-            className={focusIndex === -1 ? 'active' : null}
-          >{`Search for ${searchTerm}`}</li>
-        )}
-        {!displayResults &&
-          filteredResults.map((article, index) => (
-            <li key={index} className={focusIndex === index ? 'active' : null}>
-              <a
-                href={article.link}
-                target="_blank"
-                className="autosuggest-link"
-                ref={(link) => {
-                  linkRefs[index] = link;
-                }}
-              >
-                {article.title}
-              </a>
-            </li>
+      {listVisibility && (
+        <div className="results-list">
+          {results.map((item: SearchListResult) => (
+            <div className="item" key={item.id}>
+              {item.title}
+            </div>
           ))}
-      </ul>
-      <SearchResults />
-    </section>
+        </div>
+      )}
+    </div>
   );
 };
 
-export default Search;
+AutoComplete.propTypes = {
+  value: PropTypes.string,
+  results: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+export default AutoComplete;
+
+// const Search: FC = () => {
+//   const [searchTerm, updateSearchTerm] = useState('');
+//   const [filteredResults, updateFilteredResults] = useState([]);
+//   const [searchResults, updateSearchResults] = useState([]);
+//   const [displayResults, updateDisplayResults] = useState(false);
+//   const [focusIndex, updateFocusIndex] = useState(-1);
+//   const linkRefs = [];
+//   const keys = {
+//     ENTER: 13,
+//     UP: 38,
+//     DOWN: 40,
+//   };
+
+//   useEffect(() => {
+//     const getSearchResults = async () => {
+//       // ⚠️ This is where you should pull data in from your server
+//       const searchResultsResponse = await getSearchResults();
+
+//       updateSearchResults(searchResultsResponse);
+//     };
+
+//     getSearchResults();
+//   }, []);
+
+//   const updateSearch = (e) => {
+//     updateSearchTerm(e.target.value);
+//     updateFilteredResults(
+//       searchResults.filter((result) => result.title.match(new RegExp(e.target.value, 'gi')))
+//     );
+//   };
+
+//   const hideAutoSuggest = (e) => {
+//     e.persist();
+
+//     if (e.relatedTarget && e.relatedTarget.className === 'autosuggest-link') {
+//       return;
+//     }
+
+//     updateDisplayResults(true);
+//     updateFocusIndex(-1);
+//   };
+
+//   const showAutoSuggest = () => {
+//     updateDisplayResults(false);
+//   };
+
+//   const handleNavigation = (e) => {
+//     switch (e.keyCode) {
+//       case keys.ENTER:
+//         if (focusIndex !== -1) {
+//           window.open(linkRefs[focusIndex].href);
+//         }
+
+//         hideAutoSuggest(e);
+//         break;
+//       case keys.UP:
+//         if (focusIndex > -1) {
+//           updateFocusIndex(focusIndex - 1);
+//         }
+//         break;
+//       case keys.DOWN:
+//         if (focusIndex < filteredResults.length - 1) {
+//           updateFocusIndex(focusIndex + 1);
+//         }
+//         break;
+//     }
+//   };
+
+//   const SearchResults = () => {
+//     const Message = ({ text }) => (
+//       <div className="search-results-message">
+//         <h2>{text}</h2>
+//         <hr />
+//       </div>
+//     );
+
+//     if (!displayResults) {
+//       return null;
+//     }
+
+//     if (!searchResults.length) {
+//       return <Message text="Loading search results" />;
+//     }
+
+//     if (!searchTerm) {
+//       return <Message text="Try to search for something..." />;
+//     }
+
+//     if (!filteredResults.length) {
+//       return <Message text="We couldn't find anything for your search term." />;
+//     }
+
+//     return (
+//       <ul className="search-results">
+//         {filteredResults.map((article, index) => (
+//           <li key={index}>
+//             {/* ⚠️ You may want to outsource this part to make the component less heavy */}
+//             result ${index}
+//           </li>
+//         ))}
+//       </ul>
+//     );
+//   };
+
+//   return (
+//     <section className="search">
+//       <h1>Search {searchTerm.length ? `results for: ${searchTerm}` : null}</h1>
+//       <input
+//         type="text"
+//         placeholder="Search for tutorials..."
+//         onKeyUp={updateSearch}
+//         onKeyDown={handleNavigation}
+//         onBlur={hideAutoSuggest}
+//         onFocus={showAutoSuggest}
+//       />
+//       <ul className="search-suggestions">
+//         {!displayResults && searchTerm && (
+//           <li
+//             key="-1"
+//             className={focusIndex === -1 ? 'active' : null}
+//           >{`Search for ${searchTerm}`}</li>
+//         )}
+//         {!displayResults &&
+//           filteredResults.map((article, index) => (
+//             <li key={index} className={focusIndex === index ? 'active' : null}>
+//               <a
+//                 href={article.link}
+//                 target="_blank"
+//                 className="autosuggest-link"
+//                 ref={(link) => {
+//                   linkRefs[index] = link;
+//                 }}
+//               >
+//                 {article.title}
+//               </a>
+//             </li>
+//           ))}
+//       </ul>
+//       <SearchResults />
+//     </section>
+//   );
+// };
+
+// export default Search;

@@ -5,6 +5,18 @@ import Album from './Album';
 import AlbumsSearch from './AlbumsSearch';
 import { Row, Column } from '../ui/grid';
 
+type ThumbnailUrl = { thumbnailUrl: string };
+
+type PhotosData = {
+  data: ThumbnailUrl[];
+};
+
+type Album = {
+  id: string;
+  title: string;
+  photos: PhotosData;
+};
+
 const Albums = (): JSX.Element => {
   const [selectedAlbum, setSelectedAlbum] = useState('');
 
@@ -41,15 +53,19 @@ const Albums = (): JSX.Element => {
         </Column>
       </Row>
       <h4>{selectedAlbumText()}</h4>
-      {albums.map((album: { id: string; title: string }) => (
-        <Album
-          key={album.id}
-          id={album.id}
-          title={album.title}
-          onSelect={handleSelecdAlbum}
-          selectedAlbum={selectedAlbum}
-        />
-      ))}
+      <Row>
+        {albums.map((album: Album) => (
+          <Column colWidth="3" key={album.id}>
+            <Album
+              id={album.id}
+              title={album.title}
+              photo={album.photos.data[0].thumbnailUrl}
+              onSelect={handleSelecdAlbum}
+              selectedAlbum={selectedAlbum}
+            />
+          </Column>
+        ))}
+      </Row>
     </>
   );
 };

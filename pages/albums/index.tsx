@@ -7,7 +7,9 @@ const AlbumsPage = (): React.ReactNode => {
 
   return (
     <Container>
-      <h3>Albums</h3>
+      <div className="spacing-top">
+        <h3>Albums</h3>
+      </div>
       <Albums />
     </Container>
   );

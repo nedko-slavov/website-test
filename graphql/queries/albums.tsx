@@ -6,6 +6,12 @@ const ALBUMS = gql`
       data {
         id
         title
+        photos(options: { slice: { start: 1, end: 2 } }) {
+          data {
+            id
+            thumbnailUrl
+          }
+        }
       }
     }
   }

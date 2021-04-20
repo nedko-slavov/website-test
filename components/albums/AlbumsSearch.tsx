@@ -48,7 +48,7 @@ const AlbumsSearch: FC = () => {
     setQ(value);
   };
 
-  return <AutoComplete value={q} results={results} onChange={handleChange} />;
+  return <AutoComplete results={results} onChange={handleChange} />;
 };
 
 export default AlbumsSearch;

@@ -26,4 +26,9 @@
 
     &:last-of-type { margin-bottom: 0; }
   }
+
+  .active {
+    color: var(--white);
+    background-color: var(--error);
+  }
 }

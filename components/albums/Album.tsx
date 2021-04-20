@@ -5,11 +5,12 @@ import { Button } from '../../components/ui';
 interface AlbumProps {
   id: string;
   title: string;
+  photo: string;
   onSelect: (id: string) => void;
   selectedAlbum: string;
 }
 
-const Album = ({ id, title, onSelect, selectedAlbum }: AlbumProps): JSX.Element => {
+const Album = ({ id, title, onSelect, selectedAlbum, photo }: AlbumProps): JSX.Element => {
   // console.log('Render Album', id);
 
   const handleSelect = (): void => {
@@ -20,7 +21,9 @@ const Album = ({ id, title, onSelect, selectedAlbum }: AlbumProps): JSX.Element 
   const selectedStyles = isSelected ? { backgroundColor: 'green', color: 'white' } : {};
 
   return (
-    <div className="album" style={selectedStyles}>
+    <div className="thumbnail-wrapper" style={selectedStyles}>
+      <img src={photo} alt="" />
+
       {title}
 
       <Button type="button" kind="primary" onClick={handleSelect}>
@@ -33,6 +36,7 @@ const Album = ({ id, title, onSelect, selectedAlbum }: AlbumProps): JSX.Element 
 Album.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  photo: PropTypes.string.isRequired,
   onSelect: PropTypes.func.isRequired,
   selectedAlbum: PropTypes.string.isRequired,
 };

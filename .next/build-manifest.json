@@ -29,10 +29,15 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/albums.js"
     ],
-    "/user/[pid]": [
+    "/next/dist/pages/_error": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/user/[pid].js"
+      "static/chunks/pages/next/dist/pages/_error.js"
+    ],
+    "/photos": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/photos.js"
     ]
   },
   "ampFirstPages": []

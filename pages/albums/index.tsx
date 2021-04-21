@@ -1,17 +1,15 @@
-import React from 'react';
+import { FC } from 'react';
 import { Container } from '../../components/ui/grid';
 import Albums from '../../components/albums';
 
-const AlbumsPage = (): React.ReactNode => {
-  // console.log('Render Albums Page');
-
+const AlbumsPage: FC = () => {
   return (
-    <Container>
-      <div className="spacing-top">
+    <>
+      <Container>
         <h3>Albums</h3>
-      </div>
+      </Container>
       <Albums />
-    </Container>
+    </>
   );
 };
 

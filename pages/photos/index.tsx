@@ -12,7 +12,7 @@ interface Photo {
 
 const PhotosPage: FC = () => {
   const { loading, error, data, fetchMore } = useQuery(PHOTOS, {
-    variables: { options: { paginate: { page: 1, limit: 9 } } },
+    variables: { options: { paginate: { page: 1, limit: 12 } } },
   });
 
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -72,7 +72,7 @@ const PhotosPage: FC = () => {
           onClick={() =>
             fetchMore({
               variables: {
-                options: { paginate: { page: data.photos.links.next.page, limit: 9 } },
+                options: { paginate: { page: data.photos.links.next.page, limit: 12 } },
               },
             })
           }

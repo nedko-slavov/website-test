@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, FC } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '../../components/ui';
 
@@ -10,9 +10,7 @@ interface AlbumProps {
   selectedAlbum: string;
 }
 
-const Album = ({ id, title, onSelect, selectedAlbum, photo }: AlbumProps): JSX.Element => {
-  // console.log('Render Album', id);
-
+const Album: FC<AlbumProps> = ({ id, title, onSelect, selectedAlbum, photo }) => {
   const handleSelect = (): void => {
     onSelect(id);
   };

@@ -1,5 +1,6 @@
 import { FC, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 import LoggedLinks from './LoggedLinks';
 import LoggoutLinks from './LoggoutLinks';
 import { useTheme } from '../../../providers/ThemeProvider';
@@ -39,6 +40,14 @@ const Navigation: FC<NavigationProps> = ({ userInfo }) => {
 
   return (
     <div className="navigation">
+      <Link href="/albums">
+        <a>Albums</a>
+      </Link>
+
+      <Link href="/photos">
+        <a>Photos</a>
+      </Link>
+
       {!userInfo ? <LoggoutLinks /> : null}
       {userInfo ? <LoggedLinks userInfo={userInfo} /> : null}
       <Button type="button" onClick={setTheme}>

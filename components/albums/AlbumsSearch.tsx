@@ -1,7 +1,10 @@
 import { FC, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/client';
 import { ALBUM_SEARCH } from '../../graphql/queries';
 import { AutoComplete } from '../ui';
+import StickyContainer from '../StickyContainer';
+import { Row, Column, Container } from '../ui/grid';
 
 type SearchData = {
   [key: string]: { data: [] };
@@ -32,11 +35,15 @@ const useSearch = (value: string): UseSearch => {
   };
 };
 
-const AlbumsSearch: FC = () => {
+type AlbumSearch = {
+  onAlbumSelect: (id: string) => void;
+};
+
+const AlbumsSearch: FC<AlbumSearch> = ({ onAlbumSelect }) => {
   const [results, setResults] = useState([]);
   const [q, setQ] = useState('');
 
-  const { data } = useSearch(q);
+  const { data, loading } = useSearch(q);
 
   useEffect(() => {
     if (data && q) setResults(data.albums.data);
@@ -48,7 +55,31 @@ const AlbumsSearch: FC = () => {
     setQ(value);
   };
 
-  return <AutoComplete results={results} onChange={handleChange} />;
+  const handleSelect = (id: string): void => {
+    onAlbumSelect(id);
+    setResults([]);
+  };
+
+  return (
+    <StickyContainer className="albums-search">
+      <Container>
+        <Row>
+          <Column colWidth="5">
+            <AutoComplete
+              results={results}
+              onChange={handleChange}
+              loading={loading}
+              onSelect={handleSelect}
+            />
+          </Column>
+        </Row>
+      </Container>
+    </StickyContainer>
+  );
+};
+
+AlbumsSearch.propTypes = {
+  onAlbumSelect: PropTypes.func.isRequired,
 };
 
 export default AlbumsSearch;

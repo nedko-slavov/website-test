@@ -18,6 +18,7 @@
     padding: 0.5em;
     margin-bottom: 0.5em;
     font-size: 0.85em;
+    cursor: pointer;
 
     &:hover {
       color: var(--white);
@@ -30,5 +31,13 @@
   .active {
     color: var(--white);
     background-color: var(--error);
+  }
+
+  .sk-circle {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    width: 20px;
+    height: 20px;
   }
 }

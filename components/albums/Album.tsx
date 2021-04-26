@@ -1,27 +1,16 @@
-import { memo, FC } from 'react';
+import { memo, useCallback, FC } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '../../components/ui';
+import Button from '../../components/Button';
+import { AlbumProps } from '../../types';
 
-interface AlbumProps {
-  id: string;
-  title: string;
-  photo: string;
-  onSelect: (id: string) => void;
-  selectedAlbum: string;
-}
-
-const Album: FC<AlbumProps> = ({ id, title, onSelect, selectedAlbum, photo }) => {
-  const handleSelect = (): void => {
+const Album: FC<AlbumProps> = ({ id, title, onSelect, cover }) => {
+  const handleSelect = useCallback((): void => {
     onSelect(id);
-  };
-
-  const isSelected = selectedAlbum === id;
-  const selectedStyles = isSelected ? { backgroundColor: 'green', color: 'white' } : {};
+  }, [id, onSelect]);
 
   return (
-    <div className="thumbnail-wrapper" style={selectedStyles}>
-      <img src={photo} alt="" />
-
+    <div className="thumbnail-wrapper">
+      <img src={cover} alt={cover} />
       {title}
 
       <Button type="button" kind="primary" onClick={handleSelect}>
@@ -34,11 +23,8 @@ const Album: FC<AlbumProps> = ({ id, title, onSelect, selectedAlbum, photo }) =>
 Album.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  photo: PropTypes.string.isRequired,
+  cover: PropTypes.string.isRequired,
   onSelect: PropTypes.func.isRequired,
-  selectedAlbum: PropTypes.string.isRequired,
 };
 
-export default memo(Album, (oldProps, newProps) => {
-  return newProps.id !== newProps.selectedAlbum && oldProps.id !== oldProps.selectedAlbum;
-});
+export default memo(Album);

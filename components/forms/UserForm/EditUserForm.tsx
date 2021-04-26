@@ -9,33 +9,18 @@ import { useRouter } from 'next/router';
 import { IFormValues } from '../../../types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import schema from './schema';
+import { initialUserValues } from '../../../defaults';
 
-type Inputs = {
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-  website: string;
-};
-
-const initialState: Inputs = {
-  name: '',
-  username: '',
-  email: '',
-  phone: '',
-  website: '',
-};
-
-const localStorageUser = (): Inputs => {
+const localStorageUser = (): typeof initialUserValues => {
   const localStorageUser = localStorage.getItem('selectedUserContext');
   if (localStorageUser !== null) {
     return JSON.parse(localStorageUser);
   }
 
-  return initialState;
+  return initialUserValues;
 };
 
-const userData = (): Inputs => {
+const userData = (): typeof initialUserValues => {
   const { name, username, email, phone, website } = localStorageUser();
 
   return {

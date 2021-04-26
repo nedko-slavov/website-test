@@ -2,32 +2,16 @@ import { FC } from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/client';
 import { ALBUM } from '../../graphql/queries';
-import { Column, Row } from '../ui/grid';
+import { Column, Row } from '../grid';
 import Modal from '../Modal';
 import Thumbnail from '../Thumbnail';
-import { Loader } from '../ui';
+import Loader from '../Loader';
+import { AlbumModalProps, ThumbnailProps } from '../../types';
 
-interface ThumbnailProps {
-  thumbnailUrl: string;
-  title: string;
-  id?: string;
-}
-
-type AlbumModal = {
-  selectedAlbumId: string;
-  isOpen: boolean;
-  onClose: () => void;
-};
-
-const AlbumModal: FC<AlbumModal> = ({ isOpen, onClose, selectedAlbumId }) => {
+const AlbumModal: FC<AlbumModalProps> = ({ isOpen, onClose, selectedAlbumId }) => {
   const { loading, error, data } = useQuery(ALBUM, { variables: { id: selectedAlbumId } });
 
-  if (loading)
-    return (
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <Loader />
-      </Modal>
-    );
+  if (loading) return <Loader />;
   if (error) return <p>`Error! ${error.message}`</p>;
   const {
     title,
@@ -37,7 +21,7 @@ const AlbumModal: FC<AlbumModal> = ({ isOpen, onClose, selectedAlbumId }) => {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title}>
-      <h3>Author: {name}</h3>
+      <h5>Author: {name}</h5>
 
       <Row>
         {photos.data.map((photo: ThumbnailProps) => (

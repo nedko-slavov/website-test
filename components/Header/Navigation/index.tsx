@@ -4,12 +4,8 @@ import Link from 'next/link';
 import LoggedLinks from './LoggedLinks';
 import LoggoutLinks from './LoggoutLinks';
 import { useTheme } from '../../../providers/ThemeProvider';
-import { Button } from '../../ui';
-import { CurrentTheme } from '../../../types';
-
-interface NavigationProps {
-  userInfo: string;
-}
+import Button from '../../Button';
+import { CurrentTheme, NavigationProps } from '../../../types';
 
 const setThemeClassOnBody = (theme: string): void => {
   const bodyClassList = document.querySelector('body')?.classList as DOMTokenList;
@@ -25,7 +21,7 @@ const setThemeClassOnBody = (theme: string): void => {
   }
 };
 
-const Navigation: FC<NavigationProps> = ({ userInfo }) => {
+const Navigation: FC<NavigationProps> = ({ userId }) => {
   const {
     theme: { current },
     setCurrentTheme,
@@ -48,8 +44,8 @@ const Navigation: FC<NavigationProps> = ({ userInfo }) => {
         <a>Photos</a>
       </Link>
 
-      {!userInfo ? <LoggoutLinks /> : null}
-      {userInfo ? <LoggedLinks userInfo={userInfo} /> : null}
+      {!userId ? <LoggoutLinks /> : null}
+      {userId ? <LoggedLinks userId={userId} /> : null}
       <Button type="button" onClick={setTheme}>
         theme to {current === 'dark' ? 'light' : 'dark'}
       </Button>
@@ -58,7 +54,7 @@ const Navigation: FC<NavigationProps> = ({ userInfo }) => {
 };
 
 Navigation.propTypes = {
-  userInfo: PropTypes.string.isRequired,
+  userId: PropTypes.string,
 };
 
 export default Navigation;

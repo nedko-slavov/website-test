@@ -4,20 +4,11 @@ import { useForm } from 'react-hook-form';
 import { CREATE_USER } from '../../../graphql/mutations';
 import { USERS } from '../../../graphql/queries';
 import UserForm from './UserForm';
-import { IFormValues } from '../../../types';
+import { IFormValues, User } from '../../../types';
 import { UserContext } from '../../../providers/UserProvider';
 import router from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import schema from './schema';
-
-type UserBaseTypes = {
-  id: string;
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-  website: string;
-};
 
 const CreateUserForm: FC = () => {
   const { setUserContext } = useContext(UserContext);
@@ -39,7 +30,7 @@ const CreateUserForm: FC = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>An error occurred</p>;
 
-  const onSubmit = (data: UserBaseTypes): void => {
+  const onSubmit = (data: User): void => {
     addUser({
       variables: { input: data },
       refetchQueries: [{ query: USERS }],

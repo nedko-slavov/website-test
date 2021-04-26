@@ -1,30 +1,13 @@
 import Link from 'next/link';
 import { FC, useContext } from 'react';
-import { Button } from '../../components/ui';
-import { Column, Container, Row } from '../../components/ui/grid';
+import Button from '../../components/Button';
+import { Column, Container, Row } from '../../components/grid';
 import { UserContext } from '../../providers/UserProvider';
 import { useMutation } from '@apollo/client';
 import { DELETE_USER } from '../../graphql/mutations';
 import { USERS } from '../../graphql/queries';
 import { useRouter } from 'next/router';
-
-type Inputs = {
-  id: string;
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-  website: string;
-};
-
-const initialState: Inputs = {
-  id: '',
-  name: '',
-  username: '',
-  email: '',
-  phone: '',
-  website: '',
-};
+import { initialUserValues } from '../../defaults';
 
 const UserInfoPage: FC = () => {
   const router = useRouter();
@@ -35,8 +18,8 @@ const UserInfoPage: FC = () => {
   const [deleteUser, { loading, error }] = useMutation(DELETE_USER, {
     onCompleted(data) {
       if (data.deleteUser) {
-        setUserContext(initialState);
-        localStorage.setItem('selectedUserContext', JSON.stringify(initialState));
+        setUserContext({ ...initialUserValues, id: '' });
+        localStorage.setItem('selectedUserContext', JSON.stringify(initialUserValues));
       }
     },
   });

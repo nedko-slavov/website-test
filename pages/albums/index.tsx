@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Container } from '../../components/ui/grid';
+import { Container } from '../../components/grid';
 import Albums from '../../components/albums';
 
 const AlbumsPage: FC = () => {

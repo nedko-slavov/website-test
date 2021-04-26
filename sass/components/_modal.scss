@@ -6,21 +6,25 @@
   height: 100vh;
   background-color: var(--black);
   opacity: 0.8;
+  backdrop-filter: blur(10px);
 }
 
 .modal {
   position: relative;
+  padding: var(--spacing-md) var(--gutter);
   margin: 0 auto;
   min-width: 300px;
   max-width: 900px;
-  max-height: 80vh;
-  padding: var(--gutter);
-  overflow-y: auto;
   background-color: var(--lighter-gray);
   color: var(--black);
   z-index: 1;
 
   .sk-circle .sk-child:before { background-color: var(--white); }
+
+  .content {
+    overflow-y: auto;
+    max-height: 60vh;
+  }
 }
 
 .modal-wrapper {

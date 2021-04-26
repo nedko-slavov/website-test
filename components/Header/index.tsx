@@ -1,6 +1,6 @@
 import { useContext, FC } from 'react';
 import { UserContext } from '../../providers/UserProvider';
-import { Container } from '../ui/grid';
+import { Container } from '../grid';
 import UserInfo from './UserInfo';
 import Navigation from './Navigation';
 
@@ -13,7 +13,7 @@ const Header: FC = () => {
     <header className="header">
       <Container>
         <div className="wrapper">
-          <Navigation userInfo={id} />
+          <Navigation userId={id} />
 
           {name ? <UserInfo name={name} /> : null}
         </div>

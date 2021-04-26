@@ -3,6 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/photos": "pages/photos.js",
-  "/albums": "pages/albums.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js"
+  "/albums": "pages/albums.js"
 }

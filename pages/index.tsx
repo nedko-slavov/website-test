@@ -1,4 +1,4 @@
-import { Container } from '../components/ui/grid';
+import { Container } from '../components/grid';
 
 const Home: React.FC = () => (
   <Container>

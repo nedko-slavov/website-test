@@ -1,9 +1,6 @@
 import { FC } from 'react';
 import PropTypes from 'prop-types';
-
-interface UserInfoProps {
-  name: string;
-}
+import { UserInfoProps } from '../../types';
 
 const UserInfo: FC<UserInfoProps> = ({ name }) => <div className="user-info">{name}</div>;
 

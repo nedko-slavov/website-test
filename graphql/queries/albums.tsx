@@ -6,9 +6,8 @@ const ALBUMS = gql`
       data {
         id
         title
-        photos(options: { slice: { start: 1, end: 2 } }) {
+        photos(options: { paginate: { limit: 1 } }) {
           data {
-            id
             thumbnailUrl
           }
         }

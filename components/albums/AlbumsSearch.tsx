@@ -2,24 +2,12 @@ import { FC, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/client';
 import { ALBUM_SEARCH } from '../../graphql/queries';
-import { AutoComplete } from '../ui';
+import { AutoComplete } from '../inputsFields';
 import StickyContainer from '../StickyContainer';
-import { Row, Column, Container } from '../ui/grid';
+import { Row, Column, Container } from '../grid';
+import { AlbumSearch, UseSearchReturn, SearchData, SearchVars } from '../../types';
 
-type SearchData = {
-  [key: string]: { data: [] };
-};
-
-type UseSearch = {
-  loading: boolean;
-  data?: SearchData;
-};
-
-type SearchVars = {
-  options: { search: { q: string } };
-};
-
-const useSearch = (value: string): UseSearch => {
+const useSearch = (value: string): UseSearchReturn => {
   const { loading, data } = useQuery<SearchData, SearchVars>(ALBUM_SEARCH, {
     variables: { options: { search: { q: value } } },
   });
@@ -33,10 +21,6 @@ const useSearch = (value: string): UseSearch => {
   return {
     loading,
   };
-};
-
-type AlbumSearch = {
-  onAlbumSelect: (id: string) => void;
 };
 
 const AlbumsSearch: FC<AlbumSearch> = ({ onAlbumSelect }) => {

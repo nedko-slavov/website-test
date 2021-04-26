@@ -3,40 +3,22 @@ import Link from 'next/link';
 import router from 'next/router';
 import PropTypes from 'prop-types';
 import { UserContext } from '../../../providers/UserProvider';
+import { initialUserValues } from '../../../defaults';
+import { NavigationProps } from '../../../types';
 
-const iniState = {
-  id: '',
-  name: '',
-  username: '',
-  email: '',
-  phone: '',
-  website: '',
-};
-
-interface NavigationProps {
-  userInfo: string;
-}
-
-const LoggedLinks: FC<NavigationProps> = ({ userInfo }) => {
+const LoggedLinks: FC<NavigationProps> = ({ userId }) => {
   const { setUserContext } = useContext(UserContext);
 
   const handleLogut = (e: MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
-    setUserContext({
-      id: '',
-      email: '',
-      name: '',
-      website: '',
-      username: '',
-      phone: '',
-    });
-    localStorage.setItem('selectedUserContext', JSON.stringify(iniState));
+    setUserContext({ ...initialUserValues, id: '' });
+    localStorage.setItem('selectedUserContext', JSON.stringify(initialUserValues));
     router.push('/login');
   };
 
   return (
     <>
-      <Link href={`/user/${userInfo}`}>
+      <Link href={`/user/${userId}`}>
         <a>User Info</a>
       </Link>
 
@@ -48,7 +30,7 @@ const LoggedLinks: FC<NavigationProps> = ({ userInfo }) => {
 };
 
 LoggedLinks.propTypes = {
-  userInfo: PropTypes.string.isRequired,
+  userId: PropTypes.string.isRequired,
 };
 
 export default LoggedLinks;

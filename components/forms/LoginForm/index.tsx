@@ -4,26 +4,11 @@ import { useForm } from 'react-hook-form';
 import { USERS } from '../../../graphql/queries';
 import { UserContext } from '../../../providers/UserProvider';
 import router from 'next/router';
-import { Button, Form, SelectInput } from '../../ui';
-import { IFormValues } from '../../../types';
-
-interface User {
-  id: string;
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-  website: string;
-}
-
-const iniState = {
-  id: '',
-  name: '',
-  username: '',
-  email: '',
-  phone: '',
-  website: '',
-};
+import { SelectInput } from '../../inputsFields';
+import Form from '../../Form';
+import Button from '../../Button';
+import { IFormValues, User } from '../../../types';
+import { initialUserValues } from '../../../defaults';
 
 const LoginForm: React.FC = () => {
   const { loading, error, data } = useQuery(USERS);
@@ -33,10 +18,10 @@ const LoginForm: React.FC = () => {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<IFormValues>({ defaultValues: iniState });
+  } = useForm<IFormValues>({ defaultValues: initialUserValues });
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <p>`Error! ${error}`</p>;
+  if (error) return <p>`Error! ${error.message}`</p>;
 
   const users = data && data.users.data;
 

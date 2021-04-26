@@ -1,4 +1,4 @@
-import { Container } from '../../../components/ui/grid';
+import { Container } from '../../../components/grid';
 import { FC } from 'react';
 import { CreateUserForm } from '../../../components/forms/UserForm';
 

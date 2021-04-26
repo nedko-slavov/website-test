@@ -32,24 +32,24 @@ export default new ApolloClient({
               return result;
             },
           },
-          users: {
-            keyArgs: false,
-            merge(existing = { data: [] }, incoming = {}) {
-              // console.log('incoming', incoming);
-              // console.log('existing', existing);
+          // users: {
+          //   keyArgs: false,
+          //   merge(existing = { data: [] }, incoming = {}) {
+          //     // console.log('incoming', incoming);
+          //     // console.log('existing', existing);
 
-              // const result =
-              //   incoming.data.length > 0
-              //     ? {
-              //         __typename: 'UsersPage',
-              //         data: [...existing?.data, ...incoming.data],
-              //       }
-              //     : existing;
+          //     // const result =
+          //     //   incoming.data.length > 0
+          //     //     ? {
+          //     //         __typename: 'UsersPage',
+          //     //         data: [...existing?.data, ...incoming.data],
+          //     //       }
+          //     //     : existing;
 
-              // return result;
-              return incoming;
-            },
-          },
+          //     // return result;
+          //     return incoming;
+          //   },
+          // },
         },
       },
     },

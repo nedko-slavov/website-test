@@ -1,18 +1,12 @@
-import { FC, FormEventHandler } from 'react';
+import { FC } from 'react';
 import PropTypes from 'prop-types';
-import { Column, Row } from '../../ui/grid';
-import { Button, Form, InputText } from '../../ui';
-import { UseFormRegister, DeepMap, FieldError } from 'react-hook-form';
-import { IFormValues } from '../../../types';
+import { Column, Row } from '../../grid';
+import { InputText } from '../../inputsFields';
+import Form from '../../Form';
+import Button from '../../Button';
+import { UserFormProps } from '../../../types';
 
-type UserFormTypes = {
-  submitButonLabel: string;
-  onSubmit: FormEventHandler<HTMLFormElement>;
-  register: UseFormRegister<IFormValues>;
-  errors?: DeepMap<IFormValues, FieldError>;
-};
-
-const UserForm: FC<UserFormTypes> = ({ submitButonLabel, register, onSubmit, errors }) => {
+const UserForm: FC<UserFormProps> = ({ submitButonLabel, register, onSubmit, errors }) => {
   return (
     <Row>
       <Column colWidth="4">

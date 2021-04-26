@@ -2,13 +2,8 @@ import React, { FC, useRef, useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { PHOTOS } from '../../graphql/queries';
 import Thumbnail from '../../components/Thumbnail';
-import { Button } from '../../components/ui';
-
-interface Photo {
-  id: string;
-  title: string;
-  thumbnailUrl: string;
-}
+import Button from '../../components/Button';
+import { Photo } from '../../types';
 
 const PhotosPage: FC = () => {
   const { loading, error, data, fetchMore } = useQuery(PHOTOS, {
@@ -46,7 +41,7 @@ const PhotosPage: FC = () => {
         <p>Loading...</p>
       </div>
     );
-  if (error) return <p>`Error! ${error}`</p>;
+  if (error) return <p>`Error! ${error.message}`</p>;
 
   const photos = data.photos.data;
   const photosTotalCount = data.photos.meta.totalCount;

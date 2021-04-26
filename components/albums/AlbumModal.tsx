@@ -5,13 +5,13 @@ import { ALBUM } from '../../graphql/queries';
 import { Column, Row } from '../grid';
 import Modal from '../Modal';
 import Thumbnail from '../Thumbnail';
-import Loader from '../Loader';
+import { FullPageLoader } from '../Loaders';
 import { AlbumModalProps, ThumbnailProps } from '../../types';
 
 const AlbumModal: FC<AlbumModalProps> = ({ isOpen, onClose, selectedAlbumId }) => {
   const { loading, error, data } = useQuery(ALBUM, { variables: { id: selectedAlbumId } });
 
-  if (loading) return <Loader />;
+  if (loading) return <FullPageLoader />;
   if (error) return <p>`Error! ${error.message}`</p>;
   const {
     title,

@@ -5,7 +5,7 @@ import Albums from '../../components/albums';
 const AlbumsPage: FC = () => {
   return (
     <>
-      <Container>
+      <Container className="spacing-top">
         <h3>Albums</h3>
       </Container>
       <Albums />

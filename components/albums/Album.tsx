@@ -1,6 +1,5 @@
 import { memo, useCallback, FC } from 'react';
 import PropTypes from 'prop-types';
-import Button from '../../components/Button';
 import { AlbumProps } from '../../types';
 
 const Album: FC<AlbumProps> = ({ id, title, onSelect, cover }) => {
@@ -9,13 +8,9 @@ const Album: FC<AlbumProps> = ({ id, title, onSelect, cover }) => {
   }, [id, onSelect]);
 
   return (
-    <div className="thumbnail-wrapper">
+    <div className="thumbnail-wrapper" onClick={handleSelect}>
       <img src={cover} alt={cover} />
       {title}
-
-      <Button type="button" kind="primary" onClick={handleSelect}>
-        Select
-      </Button>
     </div>
   );
 };

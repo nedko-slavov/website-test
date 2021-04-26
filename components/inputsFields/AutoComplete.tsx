@@ -1,7 +1,7 @@
 import { useCallback, FC, useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AutoCompleteProps, SearchListResult } from '../../types';
-import Loader from '../Loader';
+import { BaseLoader } from '../Loaders';
 
 const AutoComplete: FC<AutoCompleteProps> = ({ results, onChange, loading, onSelect }) => {
   const [listVisibility, setListVisibility] = useState(false);
@@ -113,7 +113,7 @@ const AutoComplete: FC<AutoCompleteProps> = ({ results, onChange, loading, onSel
         </div>
       )}
 
-      {loading && <Loader />}
+      {loading && <BaseLoader />}
     </div>
   );
 };

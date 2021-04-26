@@ -6,6 +6,7 @@ import { AutoComplete } from '../inputsFields';
 import StickyContainer from '../StickyContainer';
 import { Row, Column, Container } from '../grid';
 import { AlbumSearch, UseSearchReturn, SearchData, SearchVars } from '../../types';
+import { useTheme } from '../../providers/ThemeProvider';
 
 const useSearch = (value: string): UseSearchReturn => {
   const { loading, data } = useQuery<SearchData, SearchVars>(ALBUM_SEARCH, {
@@ -27,6 +28,10 @@ const AlbumsSearch: FC<AlbumSearch> = ({ onAlbumSelect }) => {
   const [results, setResults] = useState([]);
   const [q, setQ] = useState('');
 
+  const {
+    theme: { current },
+  } = useTheme();
+
   const { data, loading } = useSearch(q);
 
   useEffect(() => {
@@ -45,7 +50,7 @@ const AlbumsSearch: FC<AlbumSearch> = ({ onAlbumSelect }) => {
   };
 
   return (
-    <StickyContainer className="albums-search">
+    <StickyContainer className={`albums-search theme-${current}`}>
       <Container>
         <Row>
           <Column colWidth="5">

@@ -1,0 +1,21 @@
+
+.themes-switch {
+  &.switch {
+    &:before,
+    &:after {
+      position: absolute;
+      top: 3px;
+      z-index: 1;
+    }
+
+    &:before {
+      content: '🌞';
+      left: 4px;
+    }
+
+    &:after {
+      content: '🌜';
+      right: 8px;
+    }
+  }
+}

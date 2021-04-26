@@ -2,6 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/albums": "pages/albums.js",
-  "/photos": "pages/photos.js"
+  "/photos": "pages/photos.js",
+  "/login": "pages/login.js"
 }

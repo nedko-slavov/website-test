@@ -1,21 +1,17 @@
-import { useContext, FC } from 'react';
-import { UserContext } from '../../providers/UserProvider';
+import { FC } from 'react';
+
 import { Container } from '../grid';
-import UserInfo from './UserInfo';
+import UserActions from './UserActions';
 import Navigation from './Navigation';
 
 const Header: FC = () => {
-  const {
-    selectedUserContext: { name, id },
-  } = useContext(UserContext);
-
   return (
     <header className="header">
       <Container>
         <div className="wrapper">
-          <Navigation userId={id} />
+          <Navigation />
 
-          {name ? <UserInfo name={name} /> : null}
+          <UserActions />
         </div>
       </Container>
     </header>

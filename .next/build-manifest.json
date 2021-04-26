@@ -24,10 +24,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/albums": [
+    "/login": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/albums.js"
+      "static/chunks/pages/login.js"
     ],
     "/photos": [
       "static/chunks/main.js",

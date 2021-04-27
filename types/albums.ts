@@ -1,12 +1,5 @@
 import { GetId } from './getId';
 
-export interface AlbumProps {
-  id: string;
-  title: string;
-  cover: string;
-  onSelect: GetId;
-}
-
 export type AlbumModalProps = {
   selectedAlbumId: string;
   isOpen: boolean;

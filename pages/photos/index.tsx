@@ -1,9 +1,13 @@
-import React, { FC, useRef, useState, useEffect } from 'react';
+import React, { FC, useRef, useState, useEffect, useCallback } from 'react';
 import { useQuery } from '@apollo/client';
 import { PHOTOS } from '../../graphql/queries';
 import Thumbnail from '../../components/Thumbnail';
 import Button from '../../components/Button';
 import { Photo } from '../../types';
+import { Column, Row, Container } from '../../components/grid';
+import { GetId } from '../../types';
+import PhotoModal from '../../components/photos/PhotoModal';
+import { FullPageLoader } from '../../components/Loaders';
 
 const PhotosPage: FC = () => {
   const { loading, error, data, fetchMore } = useQuery(PHOTOS, {
@@ -12,6 +16,21 @@ const PhotosPage: FC = () => {
 
   const observerRef = useRef<IntersectionObserver | null>(null);
   const [buttonRef, setButtonRef] = useState<HTMLButtonElement | null>(null);
+  const [selectedPhotoId, setSelectedPhoto] = useState('');
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handlePhotoSelect = useCallback<GetId>(
+    (id) => {
+      console.log('id', id);
+      setSelectedPhoto(id);
+      setModalOpen(true);
+    },
+    [setSelectedPhoto]
+  );
+
+  const handleModalClose = (): void => {
+    setModalOpen(false);
+  };
 
   useEffect(() => {
     const options = {
@@ -35,12 +54,8 @@ const PhotosPage: FC = () => {
     }
   }, [buttonRef]);
 
-  if (loading)
-    return (
-      <div className="container">
-        <p>Loading...</p>
-      </div>
-    );
+  if (loading) return <FullPageLoader />;
+
   if (error) return <p>`Error! ${error.message}`</p>;
 
   const photos = data.photos.data;
@@ -52,12 +67,25 @@ const PhotosPage: FC = () => {
         <h3>Photos total: {photosTotalCount}</h3>
       </div>
 
-      <div id="list" className="container">
-        <div className="row">
+      <PhotoModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        selectedPhotoId={selectedPhotoId}
+      />
+
+      <Container id="list">
+        <Row>
           {photos.map((photo: Photo) => (
-            <Thumbnail key={photo.id} thumbnailUrl={photo.thumbnailUrl} title={photo.title} />
+            <Column colWidth="3" key={photo.id}>
+              <Thumbnail
+                id={photo.id}
+                thumbnailUrl={photo.thumbnailUrl}
+                title={photo.title}
+                onSelect={handlePhotoSelect}
+              />
+            </Column>
           ))}
-        </div>
+        </Row>
 
         <Button
           type="button"
@@ -74,7 +102,7 @@ const PhotosPage: FC = () => {
         >
           load more
         </Button>
-      </div>
+      </Container>
     </div>
   );
 };

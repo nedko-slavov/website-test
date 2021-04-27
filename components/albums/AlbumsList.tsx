@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import PropTypes from 'prop-types';
-import Album from './Album';
+import Thumbnail from '../Thumbnail';
 import { Column, Row } from '../grid';
 import { AlbumsListProps, AlbumType } from '../../types';
 
@@ -9,10 +9,10 @@ const AlbumsList: FC<AlbumsListProps> = ({ albums, onSelect }) => {
     <Row>
       {albums.map((album: AlbumType) => (
         <Column colWidth="3" key={album.id}>
-          <Album
+          <Thumbnail
             id={album.id}
             title={album.title}
-            cover={album.photos.data[0].thumbnailUrl}
+            thumbnailUrl={album.photos.data[0].thumbnailUrl}
             onSelect={onSelect}
           />
         </Column>

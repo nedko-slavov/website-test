@@ -3,8 +3,8 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/photos": "pages/photos.js",
-  "/user/[pid]": "pages/user/[pid].js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
   "/albums": "pages/albums.js",
-  "/login": "pages/login.js"
+  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
+  "/user/[pid]": "pages/user/[pid].js",
+  "/user/edit/[pid]": "pages/user/edit/[pid].js"
 }

@@ -18,6 +18,7 @@
   background-color: var(--lighter-gray);
   color: var(--black);
   z-index: 1;
+  border-radius: 4px;
 
   .sk-circle .sk-child:before { background-color: var(--white); }
 
@@ -48,8 +49,32 @@
 }
 
 .modal-header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-sm);
+
+  .title {
+    padding-right: var(--spacing-md);
+    padding-bottom: 0;
+  }
+
+  .close {
+    position: absolute;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    border: 1px solid var(--dark-gray);
+    border-radius: 50%;
+
+    &:before {
+      display: block;
+      margin-top: 0.1em;
+      content: 'X';
+      color: var(--dark-gray);
+      font-weight: 600;
+    }
+  }
 }

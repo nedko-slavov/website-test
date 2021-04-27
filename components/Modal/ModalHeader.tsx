@@ -5,10 +5,9 @@ import { ModalHeaderProps } from '../../types';
 const ModalHeader: FC<ModalHeaderProps> = ({ title, onClose }) => {
   return (
     <div className="modal-header">
-      {title && <h4>{title} </h4>}
-      <button type="button" onClick={onClose}>
-        close
-      </button>
+      {title && <h4 className="title">{title} </h4>}
+
+      <button type="button" className="close" onClick={onClose} />
     </div>
   );
 };

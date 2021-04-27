@@ -3,3 +3,9 @@ export type Photo = {
   title: string;
   thumbnailUrl: string;
 };
+
+export type PhotoModalProps = {
+  selectedPhotoId: string;
+  isOpen: boolean;
+  onClose: () => void;
+};

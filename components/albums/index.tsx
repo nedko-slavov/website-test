@@ -6,6 +6,7 @@ import { Container } from '../grid';
 import AlbumModal from './AlbumModal';
 import AlbumsList from './AlbumsList';
 import { GetId } from '../../types';
+import { FullPageLoader } from '../Loaders';
 
 const Albums: FC = () => {
   const [selectedAlbumId, setSelectedAlbum] = useState('');
@@ -24,7 +25,8 @@ const Albums: FC = () => {
   };
 
   const { loading, error, data } = useQuery(ALBUMS);
-  if (loading) return <p>Loading...</p>;
+
+  if (loading) return <FullPageLoader />;
   if (error) return <p>`Error! ${error}`</p>;
 
   const albums = data.albums.data;

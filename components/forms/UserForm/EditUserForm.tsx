@@ -6,12 +6,12 @@ import { USERS } from '../../../graphql/queries';
 import UserForm from './UserForm';
 import { UserContext } from '../../../providers/UserProvider';
 import { useRouter } from 'next/router';
-import { IFormValues } from '../../../types';
+import { IFormValues, User } from '../../../types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import schema from './schema';
 import { initialUserValues } from '../../../defaults';
 
-const localStorageUser = (): typeof initialUserValues => {
+const localStorageUser = (): User => {
   const localStorageUser = localStorage.getItem('selectedUserContext');
   if (localStorageUser !== null) {
     return JSON.parse(localStorageUser);
@@ -20,10 +20,11 @@ const localStorageUser = (): typeof initialUserValues => {
   return initialUserValues;
 };
 
-const userData = (): typeof initialUserValues => {
-  const { name, username, email, phone, website } = localStorageUser();
+const userData = (): User => {
+  const { id, name, username, email, phone, website } = localStorageUser();
 
   return {
+    id,
     name,
     username,
     email,

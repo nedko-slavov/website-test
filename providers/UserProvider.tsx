@@ -1,30 +1,14 @@
 import React, { useState, createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
-const iniState = {
-  id: '',
-  name: '',
-  username: '',
-  email: '',
-  phone: '',
-  website: '',
-};
+import { initialUserValues } from '../defaults/initialUserValues';
+import { User } from '../types';
 
 export const UserContext = createContext({
-  selectedUserContext: iniState,
-  setUserContext: (state: typeof iniState) => {
+  selectedUserContext: initialUserValues,
+  setUserContext: (state: typeof initialUserValues) => {
     console.log(state);
   },
 });
-
-type IniState = {
-  id: string;
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-  website: string;
-};
 
 const isWrongSymbolsIncluded = /\D+/g;
 
@@ -36,7 +20,7 @@ const formatPhone = (string: string): string => {
   return string;
 };
 
-const setUserToLocalStarage = (setUserContext: (value: IniState) => void): void => {
+const setUserToLocalStarage = (setUserContext: (value: User) => void): void => {
   const user = localStorage.getItem('selectedUserContext');
   if (user !== null) {
     const { id, name, username, email, phone, website } = JSON.parse(user);
@@ -55,7 +39,7 @@ const setUserToLocalStarage = (setUserContext: (value: IniState) => void): void 
 };
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = (props) => {
-  const [selectedUserContext, setUserContext] = useState<IniState>(iniState);
+  const [selectedUserContext, setUserContext] = useState<User>(initialUserValues);
 
   useEffect(() => {
     setUserToLocalStarage(setUserContext);

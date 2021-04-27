@@ -24,15 +24,30 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
+    "/albums": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/albums.js"
+    ],
     "/login": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/login.js"
     ],
+    "/next/dist/pages/_error": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/next/dist/pages/_error.js"
+    ],
     "/photos": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/photos.js"
+    ],
+    "/user/[pid]": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/user/[pid].js"
     ]
   },
   "ampFirstPages": []

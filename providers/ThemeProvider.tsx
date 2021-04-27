@@ -1,17 +1,15 @@
 import { FC, createContext, useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { CurrentTheme } from '../types';
+import { CurrentTheme, ThemeContextType } from '../types';
 
 const initialTheme: CurrentTheme = { current: 'dark' };
 
-type ThemeContext = {
-  theme: CurrentTheme;
-  setCurrentTheme: (state: CurrentTheme) => void;
-};
-
-export const ThemeContext = createContext({
+export const ThemeContext = createContext<ThemeContextType>({
   theme: { current: 'dark' },
-} as ThemeContext);
+  setCurrentTheme: (state) => {
+    console.log(state);
+  },
+});
 
 export const ThemeProvider: FC = ({ children }) => {
   const [theme, setCurrentTheme] = useState<CurrentTheme>(initialTheme);
@@ -28,7 +26,7 @@ export const ThemeProvider: FC = ({ children }) => {
   );
 };
 
-export const useTheme = (): ThemeContext => useContext(ThemeContext);
+export const useTheme = (): ThemeContextType => useContext(ThemeContext);
 
 ThemeProvider.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,

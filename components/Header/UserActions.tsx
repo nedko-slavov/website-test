@@ -5,10 +5,11 @@ import SignupLinks from './SignupLinks';
 import { useTheme } from '../../providers/ThemeProvider';
 import { CurrentTheme } from '../../types';
 import setThemeClassOnBody from '../../helpers/setThemeClassOnBody';
+import ThemeSwitch from './ThemeSwitch';
 
 const UserActions: FC = () => {
   const {
-    selectedUserContext: { name, id },
+    selectedUserContext: { id },
   } = useContext(UserContext);
 
   const {
@@ -25,14 +26,10 @@ const UserActions: FC = () => {
 
   return (
     <div className="user-info">
-      <label className="switch themes-switch">
-        <input type="checkbox" onClick={setTheme} />
-        <span className="slider" />
-      </label>
-
-      {name && name}
       {!id ? <SignupLinks /> : null}
-      {id ? <UserLinks userId={id} /> : null}
+      {id ? <UserLinks /> : null}
+
+      <ThemeSwitch setTheme={setTheme} />
     </div>
   );
 };

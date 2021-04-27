@@ -13,12 +13,12 @@ const UserInfoPage: FC = () => {
   const router = useRouter();
   const { pid } = router.query;
   const { selectedUserContext, setUserContext } = useContext(UserContext);
-  const { id, name, username, email, phone, website } = selectedUserContext;
+  const { name, username, email, phone, website } = selectedUserContext;
 
   const [deleteUser, { loading, error }] = useMutation(DELETE_USER, {
     onCompleted(data) {
       if (data.deleteUser) {
-        setUserContext({ ...initialUserValues, id: '' });
+        setUserContext(initialUserValues);
         localStorage.setItem('selectedUserContext', JSON.stringify(initialUserValues));
       }
     },
@@ -57,7 +57,7 @@ const UserInfoPage: FC = () => {
           <h5>website: {website}</h5>
         </Column>
       </Row>
-      <Link href={`/user/edit/${id}`}>
+      <Link href={`/user/edit/${pid}`}>
         <a className="btn-primary">Edit</a>
       </Link>
 

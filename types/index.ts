@@ -9,7 +9,14 @@ export type {
   UserFormProps,
 } from './form';
 export type { CurrentTheme, ThemeType, ThemeContextType, ThemeSwitchProps } from './themes';
-export type { AlbumModalProps, AlbumType, AlbumsListProps, AlbumSearch } from './albums';
+export type {
+  AlbumModalProps,
+  AlbumType,
+  AlbumsListProps,
+  AlbumSearch,
+  AlbumPreviewProps,
+  UserPageAlbum,
+} from './albums';
 export type { ThumbnailProps } from './thumbnailProps';
 export type { UseSearchReturn, SearchData, SearchVars } from './search';
 export type { User } from './user';

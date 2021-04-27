@@ -24,6 +24,10 @@ const UserLinks: FC = () => {
       </Link>
 
       <div className="items">
+        <Link href={`/user/${id}/albums`}>
+          <a className="item">Your albums</a>
+        </Link>
+
         <a href="#" className="item" onClick={handleLogut}>
           Logout
         </a>

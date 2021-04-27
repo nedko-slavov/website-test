@@ -12,12 +12,12 @@ const Thumbnail: FC<ThumbnailProps> = ({ thumbnailUrl, title, id, onSelect }) =>
       {onSelect ? (
         <div onClick={handleSelect}>
           <img src={thumbnailUrl} alt={thumbnailUrl} />
-          <h5>{title}</h5>
+          {title && <h5>{title}</h5>}
         </div>
       ) : (
         <>
           <img src={thumbnailUrl} alt={thumbnailUrl} />
-          <h5>{title}</h5>
+          {title && <h5>{title}</h5>}
         </>
       )}
     </div>

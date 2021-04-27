@@ -5,3 +5,4 @@ export { default as ALBUM } from './album';
 export { default as PHOTOS } from './photos';
 export { default as ALBUM_SEARCH } from './albumSearch';
 export { default as PHOTO } from './photo';
+export { default as USER_ALBUMS } from './userAlbums';

@@ -6,7 +6,7 @@ export type AlbumModalProps = {
   onClose: () => void;
 };
 
-export type ThumbnailUrl = { thumbnailUrl: string };
+export type ThumbnailUrl = { id?: string; thumbnailUrl: string };
 
 export type PhotosThumb = {
   data: ThumbnailUrl[];
@@ -25,4 +25,15 @@ export type AlbumsListProps = {
 
 export type AlbumSearch = {
   onAlbumSelect: GetId;
+};
+
+export type AlbumPreviewProps = {
+  title: string;
+  photos: ThumbnailUrl[];
+};
+
+export type UserPageAlbum = {
+  id: string;
+  title: string;
+  photos: { data: ThumbnailUrl[] };
 };

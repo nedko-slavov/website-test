@@ -29,11 +29,5 @@ export type AlbumSearch = {
 
 export type AlbumPreviewProps = {
   title: string;
-  photos: ThumbnailUrl[];
-};
-
-export type UserPageAlbum = {
-  id: string;
-  title: string;
   photos: { data: ThumbnailUrl[] };
 };

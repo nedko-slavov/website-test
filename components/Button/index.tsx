@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ButtonProps, ButtonKind } from '../../types';
 
 const Button = forwardRef(function Button(
-  { children, type, className, kind = 'primary', ...props }: ButtonProps,
+  { children, type = 'button', className, kind = 'primary', ...props }: ButtonProps,
   ref: Ref<HTMLButtonElement>
 ) {
   return (
@@ -19,7 +19,7 @@ const Button = forwardRef(function Button(
 });
 
 Button.propTypes = {
-  type: PropTypes.any.isRequired,
+  type: PropTypes.any,
   className: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   kind: PropTypes.oneOf<ButtonKind>(['primary', 'secondary', 'secondary', 'warning']),

@@ -4,8 +4,8 @@ import { useQuery } from '@apollo/client';
 import { USER_ALBUMS } from '../../../../graphql/queries';
 import { FullPageLoader } from '../../../../components/Loaders';
 import { UserContext } from '../../../../providers/UserProvider';
-import { UserPageAlbum } from '../../../../types';
-import AlbumPreview from '../../../../components/AlbumPreview';
+import Pagination from '../../../../components/paginate';
+import AlbumPreview from '../../../../components/user/Albums';
 
 const UserAlbumsPage: FC = () => {
   const {
@@ -22,12 +22,10 @@ const UserAlbumsPage: FC = () => {
   const albums = data.user.albums.data;
 
   return (
-    <Container className="spacing-top-lg">
+    <Container className="spacing-both-lg">
       <h3>User Albums</h3>
 
-      {albums.map((album: UserPageAlbum) => (
-        <AlbumPreview key={album.id} title={album.title} photos={album.photos.data} />
-      ))}
+      <Pagination data={albums} pageSize={1} Component={AlbumPreview} />
     </Container>
   );
 };

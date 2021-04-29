@@ -15,7 +15,8 @@ export type {
   AlbumsListProps,
   AlbumSearch,
   AlbumPreviewProps,
-  UserPageAlbum,
+  PhotosThumb,
+  ThumbnailUrl,
 } from './albums';
 export type { ThumbnailProps } from './thumbnailProps';
 export type { UseSearchReturn, SearchData, SearchVars } from './search';

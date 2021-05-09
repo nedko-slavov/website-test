@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import { USERS } from '../../../graphql/queries';
-import { UserContext } from '../../../providers/UserProvider';
+import { useUserContext } from '../../../providers/UserProvider';
 import router from 'next/router';
 import { SelectInput } from '../../inputsFields';
 import Form from '../../Form';
@@ -12,7 +12,7 @@ import { initialUserValues } from '../../../defaults';
 
 const LoginForm: React.FC = () => {
   const { loading, error, data } = useQuery(USERS);
-  const { setUserContext } = useContext(UserContext);
+  const { setUserContext } = useUserContext();
 
   const {
     register,

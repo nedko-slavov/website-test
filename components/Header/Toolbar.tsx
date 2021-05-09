@@ -1,5 +1,5 @@
-import { FC, useContext } from 'react';
-import { UserContext } from '../../providers/UserProvider';
+import { FC } from 'react';
+import { useUserContext } from '../../providers/UserProvider';
 import UserLinks from './UserLinks';
 import SignupLinks from './SignupLinks';
 import { useTheme } from '../../providers/ThemeProvider';
@@ -10,7 +10,7 @@ import ThemeSwitch from './ThemeSwitch';
 const Toolbar: FC = () => {
   const {
     selectedUserContext: { id },
-  } = useContext(UserContext);
+  } = useUserContext();
 
   const {
     theme: { current },

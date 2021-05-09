@@ -9,7 +9,7 @@ const Navigation: FC = () => {
         <a>Albums</a>
       </Link>
 
-      <Link href="/photos">
+      <Link href="/">
         <a>Photos</a>
       </Link>
     </div>

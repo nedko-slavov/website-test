@@ -20,7 +20,7 @@ export type {
 } from './albums';
 export type { ThumbnailProps } from './thumbnailProps';
 export type { UseSearchReturn, SearchData, SearchVars } from './search';
-export type { User } from './user';
+export type { User, UserContextType } from './user';
 export type { ModalProps, ModalHeaderProps } from './modal';
 export type { ButtonProps, ButtonKind } from './button';
 export type { AutoCompleteProps, SearchListResult } from './autoComplete';

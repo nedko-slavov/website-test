@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import Button from '../../../components/Button';
 import { Column, Container, Row } from '../../../components/grid';
-import { UserContext } from '../../../providers/UserProvider';
+import { useUserContext } from '../../../providers/UserProvider';
 import { useMutation } from '@apollo/client';
 import { DELETE_USER } from '../../../graphql/mutations';
 import { USERS } from '../../../graphql/queries';
@@ -12,7 +12,7 @@ import { initialUserValues } from '../../../defaults';
 const UserInfoPage: FC = () => {
   const router = useRouter();
   const { userid } = router.query;
-  const { selectedUserContext, setUserContext } = useContext(UserContext);
+  const { selectedUserContext, setUserContext } = useUserContext();
   const { name, username, email, phone, website } = selectedUserContext;
 
   const [deleteUser, { loading, error }] = useMutation(DELETE_USER, {

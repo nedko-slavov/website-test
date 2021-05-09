@@ -1,10 +1,10 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import { UPDATE_USER } from '../../../graphql/mutations';
 import { USERS } from '../../../graphql/queries';
 import UserForm from './UserForm';
-import { UserContext } from '../../../providers/UserProvider';
+import { useUserContext } from '../../../providers/UserProvider';
 import { useRouter } from 'next/router';
 import { IFormValues, User } from '../../../types';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -34,7 +34,7 @@ const userData = (): User => {
 };
 
 const EditUserForm: FC = () => {
-  const { setUserContext } = useContext(UserContext);
+  const { setUserContext } = useUserContext();
   const router = useRouter();
   const { pid } = router.query;
   const {

@@ -6,3 +6,8 @@ export interface User {
   phone: string;
   website: string;
 }
+
+export type UserContextType = {
+  selectedUserContext: User;
+  setUserContext: (state: User) => void;
+};

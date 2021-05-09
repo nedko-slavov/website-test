@@ -1,11 +1,11 @@
-import React, { useState, createContext, useEffect, useMemo } from 'react';
+import React, { useState, createContext, useEffect, useMemo, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { initialUserValues } from '../defaults/initialUserValues';
-import { User } from '../types';
+import { User, UserContextType } from '../types';
 
-export const UserContext = createContext({
+export const UserContext = createContext<UserContextType>({
   selectedUserContext: initialUserValues,
-  setUserContext: (state: typeof initialUserValues) => {
+  setUserContext: (state: User) => {
     console.log(state);
   },
 });
@@ -61,6 +61,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = (props) => 
 
   return <UserContext.Provider value={userContext}>{props.children}</UserContext.Provider>;
 };
+
+export const useUserContext = (): UserContextType => useContext(UserContext);
 
 UserProvider.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,

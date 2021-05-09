@@ -6,4 +6,5 @@ export type ThemeContextType = {
   theme: CurrentTheme;
   setCurrentTheme: (state: CurrentTheme) => void;
 };
+
 export type ThemeSwitchProps = { setTheme: () => void };

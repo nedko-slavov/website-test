@@ -1,16 +1,16 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { Container } from '../../../../components/grid';
 import { useQuery } from '@apollo/client';
 import { USER_ALBUMS } from '../../../../graphql/queries';
 import { FullPageLoader } from '../../../../components/Loaders';
-import { UserContext } from '../../../../providers/UserProvider';
+import { useUserContext } from '../../../../providers/UserProvider';
 import Pagination from '../../../../components/paginate';
 import AlbumPreview from '../../../../components/user/Albums';
 
 const UserAlbumsPage: FC = () => {
   const {
     selectedUserContext: { id },
-  } = useContext(UserContext);
+  } = useUserContext();
 
   const { loading, error, data } = useQuery(USER_ALBUMS, {
     variables: { id },

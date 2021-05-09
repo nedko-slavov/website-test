@@ -1,14 +1,14 @@
-import { FC, useContext, MouseEvent } from 'react';
+import { FC, MouseEvent } from 'react';
 import Link from 'next/link';
 import router from 'next/router';
-import { UserContext } from '../../providers/UserProvider';
+import { useUserContext } from '../../providers/UserProvider';
 import { initialUserValues } from '../../defaults';
 
 const UserLinks: FC = () => {
   const {
     selectedUserContext: { username, id },
     setUserContext,
-  } = useContext(UserContext);
+  } = useUserContext();
 
   const handleLogut = (e: MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();

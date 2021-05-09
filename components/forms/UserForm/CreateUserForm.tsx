@@ -1,17 +1,17 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import { CREATE_USER } from '../../../graphql/mutations';
 import { USERS } from '../../../graphql/queries';
 import UserForm from './UserForm';
 import { IFormValues, User } from '../../../types';
-import { UserContext } from '../../../providers/UserProvider';
+import { useUserContext } from '../../../providers/UserProvider';
 import router from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import schema from './schema';
 
 const CreateUserForm: FC = () => {
-  const { setUserContext } = useContext(UserContext);
+  const { setUserContext } = useUserContext();
   const [addUser, { loading, error }] = useMutation(CREATE_USER, {
     onCompleted(user) {
       if (user) {

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { Container } from '../grid';
-import UserActions from './UserActions';
+import Toolbar from './Toolbar';
 import Navigation from './Navigation';
 
 const Header: FC = () => {
@@ -11,7 +11,7 @@ const Header: FC = () => {
         <div className="wrapper">
           <Navigation />
 
-          <UserActions />
+          <Toolbar />
         </div>
       </Container>
     </header>

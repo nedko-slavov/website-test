@@ -1,4 +1,4 @@
-import { FC, useContext, useCallback } from 'react';
+import { FC, useContext } from 'react';
 import { UserContext } from '../../providers/UserProvider';
 import UserLinks from './UserLinks';
 import SignupLinks from './SignupLinks';
@@ -7,7 +7,7 @@ import { CurrentTheme } from '../../types';
 import setThemeClassOnBody from '../../helpers/setThemeClassOnBody';
 import ThemeSwitch from './ThemeSwitch';
 
-const UserActions: FC = () => {
+const Toolbar: FC = () => {
   const {
     selectedUserContext: { id },
   } = useContext(UserContext);
@@ -17,12 +17,12 @@ const UserActions: FC = () => {
     setCurrentTheme,
   } = useTheme();
 
-  const setTheme = useCallback(() => {
+  const setTheme = (): void => {
     const currentTheme: CurrentTheme = { current: current === 'dark' ? 'light' : 'dark' };
 
     setThemeClassOnBody(currentTheme.current);
     setCurrentTheme(currentTheme);
-  }, [current, setCurrentTheme]);
+  };
 
   return (
     <div className="user-info">
@@ -34,4 +34,4 @@ const UserActions: FC = () => {
   );
 };
 
-export default UserActions;
+export default Toolbar;

@@ -1,4 +1,4 @@
-import { useCallback, FC, useRef, useEffect, useState } from 'react';
+import { FC, useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AutoCompleteProps, SearchListResult } from '../../types';
 import { BaseLoader } from '../Loaders';
@@ -16,12 +16,9 @@ const AutoComplete: FC<AutoCompleteProps> = ({ results, onChange, loading, onSel
     updateFocusIndex(-1);
   };
 
-  const handleSearch = useCallback(
-    (e: React.FormEvent<HTMLInputElement>): void => {
-      onChange(e.currentTarget.value);
-    },
-    [onChange]
-  );
+  const handleSearch = (e: React.FormEvent<HTMLInputElement>): void => {
+    onChange(e.currentTarget.value);
+  };
 
   const handleFocus = (): void => {
     hideAutoSuggest();
@@ -31,13 +28,10 @@ const AutoComplete: FC<AutoCompleteProps> = ({ results, onChange, loading, onSel
     if (inputRef.current) inputRef.current.value = '';
   };
 
-  const handleItemClick = useCallback(
-    (id: string): void => {
-      onSelect(id);
-      resetInputValue();
-    },
-    [onSelect]
-  );
+  const handleItemClick = (id: string): void => {
+    onSelect(id);
+    resetInputValue();
+  };
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent): void => {

@@ -1,1 +1,1 @@
-export { default as UserBase } from './user-base';
+export { default as UserBase } from './userBase';

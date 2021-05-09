@@ -45,7 +45,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = (props) => 
     setUserToLocalStarage(setUserContext);
   }, [selectedUserContext.id, setUserContext]);
 
-  if (!(selectedUserContext.id === '')) {
+  if (selectedUserContext.id) {
     localStorage.setItem('selectedUserContext', JSON.stringify(selectedUserContext));
   }
 

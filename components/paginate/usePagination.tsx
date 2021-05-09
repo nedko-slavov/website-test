@@ -27,12 +27,12 @@ const paginate = ({ data, pageSize, pageNumber }: Paginate<[]>): PaginateReturn<
   };
 };
 
-type Paginate_Action_Type =
+type PaginateActionType =
   | { type: 'NEXT_PAGE' }
   | { type: 'PREV_PAGE' }
   | { type: 'GO_TO_PAGE'; payload: number };
 
-const paginateReducer = (state: InitialPage, action: Paginate_Action_Type): InitialPage => {
+const paginateReducer = (state: InitialPage, action: PaginateActionType): InitialPage => {
   switch (action.type) {
     case 'NEXT_PAGE':
       return { currentPage: state.currentPage + 1 };
@@ -54,7 +54,7 @@ type UsePaginationReturn<T> = {
   pageData: T[];
   totalPages: number;
   pagesNumbers: number[];
-  dispatch: Dispatch<Paginate_Action_Type>;
+  dispatch: Dispatch<PaginateActionType>;
   currentPage: number;
 };
 

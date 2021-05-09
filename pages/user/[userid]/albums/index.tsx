@@ -34,7 +34,7 @@ const UserAlbumsPage: FC = () => {
 
       {albumPage && <AlbumPreview title={albumPage.title} photos={albumPage.photos} />}
 
-      <Pagination<AlbumPreviewProps> data={albums} pageSize={2} onPageChange={handlePageChange} />
+      <Pagination<AlbumPreviewProps> data={albums} pageSize={1} onPageChange={handlePageChange} />
     </Container>
   );
 };

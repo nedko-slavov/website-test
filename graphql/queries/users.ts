@@ -1,18 +1,15 @@
 import { gql } from '@apollo/client';
+import { UserBase } from '../fragments';
 
 const USERS = gql`
   query {
     users {
       data {
-        id
-        name
-        username
-        email
-        phone
-        website
+        ...UserBase
       }
     }
   }
+  ${UserBase}
 `;
 
 export default USERS;

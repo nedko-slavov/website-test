@@ -20,7 +20,6 @@ const UserAlbumsPage: FC = () => {
   });
 
   const handlePageChange = (pageData: AlbumPreviewProps): void => {
-    console.log('pageData', pageData);
     setAlbumPage(pageData);
   };
 

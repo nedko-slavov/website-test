@@ -4,8 +4,9 @@ import { AutoCompleteProps, SearchListResult } from '../../types';
 import { BaseLoader } from '../Loaders';
 
 const AutoComplete: FC<AutoCompleteProps> = ({ results, onChange, loading, onSelect }) => {
+  const NOT_SELECTED = -1;
   const [listVisibility, setListVisibility] = useState(false);
-  const [focusIndex, updateFocusIndex] = useState(-1);
+  const [focusIndex, updateFocusIndex] = useState(NOT_SELECTED);
   const autocompleteRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listItemsIDs: string[] = [];
@@ -13,7 +14,7 @@ const AutoComplete: FC<AutoCompleteProps> = ({ results, onChange, loading, onSel
   const hideAutoSuggest = (): void => {
     if (results.length > 0) setListVisibility(true);
 
-    updateFocusIndex(-1);
+    updateFocusIndex(NOT_SELECTED);
   };
 
   const handleSearch = (e: React.FormEvent<HTMLInputElement>): void => {
@@ -57,11 +58,11 @@ const AutoComplete: FC<AutoCompleteProps> = ({ results, onChange, loading, onSel
   const handleNavigation = (e: React.KeyboardEvent): void => {
     switch (e.key) {
       case 'Escape':
-        updateFocusIndex(-1);
+        updateFocusIndex(NOT_SELECTED);
         setListVisibility(false);
         break;
       case 'Enter':
-        if (focusIndex !== -1) {
+        if (focusIndex !== NOT_SELECTED) {
           onSelect(listItemsIDs[focusIndex]);
           resetInputValue();
         }
@@ -69,7 +70,7 @@ const AutoComplete: FC<AutoCompleteProps> = ({ results, onChange, loading, onSel
         setListVisibility(false);
         break;
       case 'ArrowUp':
-        if (focusIndex > -1) {
+        if (focusIndex > NOT_SELECTED) {
           updateFocusIndex(focusIndex - 1);
         }
         break;

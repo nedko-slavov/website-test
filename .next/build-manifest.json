@@ -14,11 +14,6 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
-    "/": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/index.js"
-    ],
     "/_app": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
@@ -28,6 +23,11 @@
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
+    ],
+    "/albums": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/albums.js"
     ],
     "/login": [
       "static/chunks/main.js",
@@ -39,15 +39,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/next/dist/pages/_error.js"
     ],
-    "/photos": [
+    "/user/[userid]/albums": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/photos.js"
-    ],
-    "/user/[userid]": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/user/[userid].js"
+      "static/chunks/pages/user/[userid]/albums.js"
     ]
   },
   "ampFirstPages": []

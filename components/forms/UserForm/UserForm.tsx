@@ -56,9 +56,7 @@ const UserForm: FC<UserFormProps> = ({ submitButonLabel, register, onSubmit, err
             errors={errors}
           />
 
-          <Button type="submit" kind="primary">
-            {submitButonLabel}
-          </Button>
+          <Button type="submit" kind="primary" label={submitButonLabel} />
         </Form>
       </Column>
     </Row>

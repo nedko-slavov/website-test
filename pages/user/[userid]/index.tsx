@@ -61,9 +61,7 @@ const UserInfoPage: FC = () => {
         <a className="btn-primary">Edit</a>
       </Link>
 
-      <Button type="button" kind="warning" onClick={handleDeleteUser}>
-        Delete
-      </Button>
+      <Button type="button" kind="warning" onClick={handleDeleteUser} label="Delete" />
     </Container>
   );
 };

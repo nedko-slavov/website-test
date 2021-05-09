@@ -9,7 +9,7 @@ import { GetId } from '../types';
 import PhotoModal from '../components/photos/PhotoModal';
 import { FullPageLoader } from '../components/Loaders';
 
-const PhotosPage: FC = () => {
+const HomePage: FC = () => {
   const { loading, error, data, fetchMore } = useQuery(PHOTOS, {
     variables: { options: { paginate: { page: 1, limit: 12 } } },
   });
@@ -92,6 +92,7 @@ const PhotosPage: FC = () => {
           ref={setButtonRef}
           kind="primary"
           id="buttonLoadMore"
+          label="Load more"
           onClick={() =>
             fetchMore({
               variables: {
@@ -99,12 +100,10 @@ const PhotosPage: FC = () => {
               },
             })
           }
-        >
-          load more
-        </Button>
+        />
       </Container>
     </div>
   );
 };
 
-export default PhotosPage;
+export default HomePage;

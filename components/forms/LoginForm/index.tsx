@@ -29,7 +29,7 @@ const LoginForm: React.FC = () => {
     const user = users.find((user: User) => user.id === data.userId);
 
     setUserContext(user);
-    router.push('/photos');
+    router.push(`/user/${user.id}/albums`);
   };
 
   const selectOptions = users.map((user: User) => ({ value: user.id, label: user.name }));
@@ -44,9 +44,7 @@ const LoginForm: React.FC = () => {
         options={selectOptions}
       />
 
-      <Button type="submit" kind="primary">
-        Login
-      </Button>
+      <Button type="submit" kind="primary" label="Login" />
     </Form>
   );
 };

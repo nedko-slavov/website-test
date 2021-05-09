@@ -21,27 +21,18 @@ const PaginateNavigation: FC<PaginateNavigationProps> = ({
 }) => {
   return (
     <>
-      {!(currentPage === 1) && (
-        <Button kind="primary" onClick={handlePrevPage}>
-          Previous
-        </Button>
-      )}
+      {!(currentPage === 1) && <Button kind="primary" onClick={handlePrevPage} label="Previous" />}
 
       {pagesNumbers.map((pageNumber) => (
         <Button
           key={pageNumber}
+          label={`${pageNumber}`}
           onClick={() => handleGoToPage(pageNumber)}
           kind={pageNumber === currentPage ? 'warning' : 'secondary'}
-        >
-          {pageNumber}
-        </Button>
+        />
       ))}
 
-      {currentPage < totalPages && (
-        <Button kind="primary" onClick={handleNextPage}>
-          Next
-        </Button>
-      )}
+      {currentPage < totalPages && <Button kind="primary" onClick={handleNextPage} label="Next" />}
     </>
   );
 };

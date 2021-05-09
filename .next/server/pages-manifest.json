@@ -3,7 +3,8 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/albums": "pages/albums.js",
-  "/": "pages/index.js",
-  "/user/[userid]/albums": "pages/user/[userid]/albums.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js"
+  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
+  "/user/[userid]": "pages/user/[userid].js",
+  "/user/edit/[pid]": "pages/user/edit/[pid].js",
+  "/": "pages/index.js"
 }

@@ -24,11 +24,6 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/login": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/login.js"
-    ],
     "/next/dist/pages/_error": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
@@ -48,11 +43,6 @@
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/user/edit/[pid].js"
-    ],
-    "/user/new": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/user/new.js"
     ]
   },
   "ampFirstPages": []

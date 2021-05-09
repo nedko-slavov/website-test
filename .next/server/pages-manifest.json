@@ -2,10 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/login": "pages/login.js",
-  "/user/new": "pages/user/new.js",
-  "/user/[userid]/albums": "pages/user/[userid]/albums.js",
   "/user/[userid]": "pages/user/[userid].js",
   "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
-  "/user/edit/[pid]": "pages/user/edit/[pid].js"
+  "/user/edit/[pid]": "pages/user/edit/[pid].js",
+  "/user/[userid]/albums": "pages/user/[userid]/albums.js"
 }

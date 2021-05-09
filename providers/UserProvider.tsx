@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect } from 'react';
+import React, { useState, createContext, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { initialUserValues } from '../defaults/initialUserValues';
 import { User } from '../types';
@@ -51,11 +51,15 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = (props) => 
     localStorage.setItem(SELECTED_USER_CONTEXT, JSON.stringify(selectedUserContext));
   }
 
-  return (
-    <UserContext.Provider value={{ selectedUserContext, setUserContext }}>
-      {props.children}
-    </UserContext.Provider>
+  const userContext = useMemo(
+    () => ({
+      selectedUserContext,
+      setUserContext,
+    }),
+    [selectedUserContext]
   );
+
+  return <UserContext.Provider value={userContext}>{props.children}</UserContext.Provider>;
 };
 
 UserProvider.propTypes = {

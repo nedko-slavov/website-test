@@ -20,8 +20,10 @@ const formatPhone = (string: string): string => {
   return string;
 };
 
+const SELECTED_USER_CONTEXT = 'selectedUserContext';
+
 const loadUserFromLocalStorage = (setUserContext: (value: User) => void): void => {
-  const user = localStorage.getItem('selectedUserContext');
+  const user = localStorage.getItem(SELECTED_USER_CONTEXT);
   if (user !== null) {
     const { id, name, username, email, phone, website } = JSON.parse(user);
     const formatedPhone = formatPhone(phone);
@@ -46,7 +48,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = (props) => 
   }, [selectedUserContext.id, setUserContext]);
 
   if (selectedUserContext.id) {
-    localStorage.setItem('selectedUserContext', JSON.stringify(selectedUserContext));
+    localStorage.setItem(SELECTED_USER_CONTEXT, JSON.stringify(selectedUserContext));
   }
 
   return (

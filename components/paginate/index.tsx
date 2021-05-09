@@ -1,19 +1,21 @@
-import { FC, ElementType } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import usePagination from './usePagination';
 import PaginateNavigation from './PaginateNavigation';
 
-interface PaginationProps {
+type PaginationProps<T> = {
   data: [];
   pageSize: number;
-  Component: ElementType;
-}
+  onPageChange: (pageData: T) => void;
+};
 
-const Pagination: FC<PaginationProps> = ({ data, pageSize, Component }) => {
+function Pagination<T>({ data, pageSize, onPageChange }: PaginationProps<T>): JSX.Element {
   const { pageData, totalPages, pagesNumbers, currentPage, dispatch } = usePagination({
     data,
     pageSize,
   });
+
+  useEffect(() => onPageChange(pageData as T), [pageData, onPageChange]);
 
   const handlePrevPage = (): void => {
     dispatch({
@@ -35,27 +37,21 @@ const Pagination: FC<PaginationProps> = ({ data, pageSize, Component }) => {
   };
 
   return (
-    <>
-      {pageData.map((props, idx) => (
-        <Component key={idx} {...props} />
-      ))}
-
-      <PaginateNavigation
-        currentPage={currentPage}
-        pagesNumbers={pagesNumbers}
-        totalPages={totalPages}
-        handlePrevPage={handlePrevPage}
-        handleNextPage={handleNextPage}
-        handleGoToPage={handleGoToPage}
-      />
-    </>
+    <PaginateNavigation
+      currentPage={currentPage}
+      pagesNumbers={pagesNumbers}
+      totalPages={totalPages}
+      handlePrevPage={handlePrevPage}
+      handleNextPage={handleNextPage}
+      handleGoToPage={handleGoToPage}
+    />
   );
-};
+}
 
 Pagination.propTypes = {
   data: PropTypes.array.isRequired,
   pageSize: PropTypes.number.isRequired,
-  Component: PropTypes.func.isRequired,
+  onPageChange: PropTypes.func.isRequired,
 };
 
 export default Pagination;

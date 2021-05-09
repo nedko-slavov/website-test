@@ -3,25 +3,27 @@ import { useReducer, Dispatch } from 'react';
 type InitialPage = { currentPage: number };
 const initialPage: InitialPage = { currentPage: 1 };
 
-interface Paginate<T> {
+interface Paginate {
   pageSize: number;
   pageNumber: number;
-  data: T;
+  data: [];
 }
 
-type PaginateReturn<T> = {
-  pageData: T[];
+type PageData = Record<string, never> | Record<string, never>[];
+
+type PaginateReturn = {
+  pageData: PageData;
   totalPages: number;
   pagesNumbers: number[];
 };
 
-const paginate = ({ data, pageSize, pageNumber }: Paginate<[]>): PaginateReturn<[]> => {
+const paginate = ({ data, pageSize, pageNumber }: Paginate): PaginateReturn => {
   const pageData = data.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
   const totalPages = data.length / pageSize;
   const pagesNumbers = Array.from({ length: totalPages }, (value, index) => index + 1);
 
   return {
-    pageData,
+    pageData: pageSize === 1 ? pageData[0] : pageData,
     totalPages,
     pagesNumbers,
   };
@@ -50,15 +52,15 @@ type UsePagination = {
   pageSize: number;
 };
 
-type UsePaginationReturn<T> = {
-  pageData: T[];
+type UsePaginationReturn = {
+  pageData: PageData;
   totalPages: number;
   pagesNumbers: number[];
   dispatch: Dispatch<PaginateActionType>;
   currentPage: number;
 };
 
-const usePagination = ({ data, pageSize }: UsePagination): UsePaginationReturn<[]> => {
+const usePagination = ({ data, pageSize }: UsePagination): UsePaginationReturn => {
   const [state, dispatch] = useReducer(paginateReducer, initialPage);
   const { currentPage } = state;
 

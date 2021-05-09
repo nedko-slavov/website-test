@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Container } from '../../../../components/grid';
 import { useQuery } from '@apollo/client';
 import { USER_ALBUMS } from '../../../../graphql/queries';
@@ -6,18 +6,25 @@ import { FullPageLoader } from '../../../../components/Loaders';
 import { useUserContext } from '../../../../providers/UserProvider';
 import Pagination from '../../../../components/paginate';
 import AlbumPreview from '../../../../components/user/Albums';
+import { AlbumPreviewProps } from '../../../../types';
 
 const UserAlbumsPage: FC = () => {
+  const [albumPage, setAlbumPage] = useState<AlbumPreviewProps | null>(null);
+
   const {
     selectedUserContext: { id },
   } = useUserContext();
 
-  const { loading, error, data } = useQuery(USER_ALBUMS, {
+  const { loading, data } = useQuery(USER_ALBUMS, {
     variables: { id },
   });
 
+  const handlePageChange = (pageData: AlbumPreviewProps): void => {
+    console.log('pageData', pageData);
+    setAlbumPage(pageData);
+  };
+
   if (loading) return <FullPageLoader />;
-  if (error) return <p>`Error! ${error}`</p>;
 
   const albums = data.user.albums.data;
 
@@ -25,7 +32,9 @@ const UserAlbumsPage: FC = () => {
     <Container className="spacing-both-lg">
       <h3>User Albums</h3>
 
-      <Pagination data={albums} pageSize={1} Component={AlbumPreview} />
+      {albumPage && <AlbumPreview title={albumPage.title} photos={albumPage.photos} />}
+
+      <Pagination<AlbumPreviewProps> data={albums} pageSize={2} onPageChange={handlePageChange} />
     </Container>
   );
 };

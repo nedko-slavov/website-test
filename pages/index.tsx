@@ -21,7 +21,6 @@ const HomePage: FC = () => {
 
   const handlePhotoSelect = useCallback<GetId>(
     (id) => {
-      console.log('id', id);
       setSelectedPhoto(id);
       setModalOpen(true);
     },

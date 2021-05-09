@@ -1,11 +1,11 @@
-import { memo, FC, useCallback } from 'react';
+import { memo, FC } from 'react';
 import PropTypes from 'prop-types';
 import { ThumbnailProps } from '../../types';
 
 const Thumbnail: FC<ThumbnailProps> = ({ thumbnailUrl, title, id, onSelect }) => {
-  const handleSelect = useCallback((): void => {
+  const handleSelect = (): void => {
     if (onSelect && id) onSelect(id);
-  }, [id, onSelect]);
+  };
 
   return (
     <div className="thumbnail-wrapper">

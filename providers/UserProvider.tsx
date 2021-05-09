@@ -20,7 +20,7 @@ const formatPhone = (string: string): string => {
   return string;
 };
 
-const setUserToLocalStarage = (setUserContext: (value: User) => void): void => {
+const loadUserFromLocalStorage = (setUserContext: (value: User) => void): void => {
   const user = localStorage.getItem('selectedUserContext');
   if (user !== null) {
     const { id, name, username, email, phone, website } = JSON.parse(user);
@@ -42,7 +42,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = (props) => 
   const [selectedUserContext, setUserContext] = useState<User>(initialUserValues);
 
   useEffect(() => {
-    setUserToLocalStarage(setUserContext);
+    loadUserFromLocalStorage(setUserContext);
   }, [selectedUserContext.id, setUserContext]);
 
   if (selectedUserContext.id) {

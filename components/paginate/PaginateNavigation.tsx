@@ -21,7 +21,7 @@ const PaginateNavigation: FC<PaginateNavigationProps> = ({
 }) => {
   return (
     <>
-      {!(currentPage === 1) && <Button kind="primary" onClick={handlePrevPage} label="Previous" />}
+      {currentPage !== 1 && <Button kind="primary" onClick={handlePrevPage} label="Previous" />}
 
       {pagesNumbers.map((pageNumber) => (
         <Button

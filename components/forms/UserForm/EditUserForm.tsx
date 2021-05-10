@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { IFormValues } from '../../../types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import schema from './schema';
+import { FullPageLoader } from '../../Loaders';
 
 const EditUserForm: FC = () => {
   const { selectedUserContext, setUserContext } = useUserContext();
@@ -20,7 +21,7 @@ const EditUserForm: FC = () => {
     handleSubmit,
   } = useForm<IFormValues>({ defaultValues: selectedUserContext, resolver: yupResolver(schema) });
 
-  const [updateUser, { loading, error }] = useMutation(UPDATE_USER, {
+  const [updateUser, { loading }] = useMutation(UPDATE_USER, {
     onCompleted(user) {
       if (user) {
         setUserContext(user.updateUser);
@@ -29,8 +30,7 @@ const EditUserForm: FC = () => {
     },
   });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>An error occurred</p>;
+  if (loading) return <FullPageLoader />;
 
   const onSubmit = (data: IFormValues): void => {
     const { name, username, email, phone, website } = data;

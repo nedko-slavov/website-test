@@ -9,11 +9,12 @@ import { useUserContext } from '../../../providers/UserProvider';
 import router from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import schema from './schema';
+import { FullPageLoader } from '../../Loaders';
 
 const CreateUserForm: FC = () => {
   const { setUserContext } = useUserContext();
 
-  const [addUser, { loading, error }] = useMutation(CREATE_USER, {
+  const [addUser, { loading }] = useMutation(CREATE_USER, {
     onCompleted(user) {
       if (user) {
         setUserContext(user.createUser);
@@ -28,8 +29,7 @@ const CreateUserForm: FC = () => {
     handleSubmit,
   } = useForm<IFormValues>({ resolver: yupResolver(schema) });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>An error occurred</p>;
+  if (loading) return <FullPageLoader />;
 
   const onSubmit = (data: User): void => {
     addUser({

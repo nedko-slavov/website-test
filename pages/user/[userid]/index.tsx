@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/client';
 import { DELETE_USER } from '../../../graphql/mutations';
 import { USERS } from '../../../graphql/queries';
 import { useRouter } from 'next/router';
+import { FullPageLoader } from '../../../components/Loaders';
 
 const UserInfoPage: FC = () => {
   const router = useRouter();
@@ -14,7 +15,7 @@ const UserInfoPage: FC = () => {
   const { selectedUserContext, logoutUser } = useUserContext();
   const { name, username, email, phone, website } = selectedUserContext;
 
-  const [deleteUser, { loading, error }] = useMutation(DELETE_USER, {
+  const [deleteUser, { loading }] = useMutation(DELETE_USER, {
     onCompleted(data) {
       if (data.deleteUser) {
         logoutUser();
@@ -22,8 +23,7 @@ const UserInfoPage: FC = () => {
     },
   });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>An error occurred</p>;
+  if (loading) return <FullPageLoader />;
 
   const handleDeleteUser = (): void => {
     deleteUser({

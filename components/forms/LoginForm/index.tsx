@@ -9,9 +9,10 @@ import Form from '../../Form';
 import Button from '../../Button';
 import { IFormValues, User } from '../../../types';
 import { initialUserValues } from '../../../defaults';
+import { FullPageLoader } from '../../Loaders';
 
 const LoginForm: React.FC = () => {
-  const { loading, error, data } = useQuery(USERS);
+  const { loading, data } = useQuery(USERS);
   const { setUserContext } = useUserContext();
 
   const {
@@ -20,8 +21,7 @@ const LoginForm: React.FC = () => {
     handleSubmit,
   } = useForm<IFormValues>({ defaultValues: initialUserValues });
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <p>`Error! ${error.message}`</p>;
+  if (loading) return <FullPageLoader />;
 
   const users = data && data.users.data;
 

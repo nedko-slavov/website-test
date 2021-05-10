@@ -34,10 +34,20 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/next/dist/pages/_error.js"
     ],
+    "/user/[userid]": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/user/[userid].js"
+    ],
     "/user/[userid]/albums": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/user/[userid]/albums.js"
+    ],
+    "/user/edit/[pid]": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/user/edit/[pid].js"
     ]
   },
   "ampFirstPages": []

@@ -24,7 +24,7 @@ const AlbumPreview: FC<AlbumPreviewProps> = ({ title, photos }) => {
 AlbumPreview.propTypes = {
   title: PropTypes.string.isRequired,
   photos: PropTypes.shape({
-    data: PropTypes.arrayOf(PropTypes.shape({ thumbnailUrl: PropTypes.string.isRequired })),
+    data: PropTypes.arrayOf(PropTypes.shape({ thumbnailUrl: PropTypes.string })),
   }).isRequired,
 };
 

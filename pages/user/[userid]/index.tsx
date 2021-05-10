@@ -7,19 +7,17 @@ import { useMutation } from '@apollo/client';
 import { DELETE_USER } from '../../../graphql/mutations';
 import { USERS } from '../../../graphql/queries';
 import { useRouter } from 'next/router';
-import { initialUserValues } from '../../../defaults';
 
 const UserInfoPage: FC = () => {
   const router = useRouter();
   const { userid } = router.query;
-  const { selectedUserContext, setUserContext } = useUserContext();
+  const { selectedUserContext, logoutUser } = useUserContext();
   const { name, username, email, phone, website } = selectedUserContext;
 
   const [deleteUser, { loading, error }] = useMutation(DELETE_USER, {
     onCompleted(data) {
       if (data.deleteUser) {
-        setUserContext(initialUserValues);
-        localStorage.setItem('selectedUserContext', JSON.stringify(initialUserValues));
+        logoutUser();
       }
     },
   });

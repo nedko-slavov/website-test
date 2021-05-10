@@ -10,4 +10,5 @@ export interface User {
 export type UserContextType = {
   selectedUserContext: User;
   setUserContext: (state: User) => void;
+  logoutUser: () => void;
 };

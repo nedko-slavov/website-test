@@ -6,42 +6,19 @@ import { USERS } from '../../../graphql/queries';
 import UserForm from './UserForm';
 import { useUserContext } from '../../../providers/UserProvider';
 import { useRouter } from 'next/router';
-import { IFormValues, User } from '../../../types';
+import { IFormValues } from '../../../types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import schema from './schema';
-import { initialUserValues } from '../../../defaults';
-
-const localStorageUser = (): User => {
-  const localStorageUser = localStorage.getItem('selectedUserContext');
-  if (localStorageUser !== null) {
-    return JSON.parse(localStorageUser);
-  }
-
-  return initialUserValues;
-};
-
-const userData = (): User => {
-  const { id, name, username, email, phone, website } = localStorageUser();
-
-  return {
-    id,
-    name,
-    username,
-    email,
-    phone,
-    website,
-  };
-};
 
 const EditUserForm: FC = () => {
-  const { setUserContext } = useUserContext();
+  const { selectedUserContext, setUserContext } = useUserContext();
   const router = useRouter();
   const { pid } = router.query;
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<IFormValues>({ defaultValues: userData(), resolver: yupResolver(schema) });
+  } = useForm<IFormValues>({ defaultValues: selectedUserContext, resolver: yupResolver(schema) });
 
   const [updateUser, { loading, error }] = useMutation(UPDATE_USER, {
     onCompleted(user) {

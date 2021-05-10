@@ -8,6 +8,7 @@ export const UserContext = createContext<UserContextType>({
   setUserContext: (state: User) => {
     console.log(state);
   },
+  logoutUser: () => console.log(initialUserValues),
 });
 
 const isWrongSymbolsIncluded = /\D+/g;
@@ -47,14 +48,22 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = (props) => 
     loadUserFromLocalStorage(setUserContext);
   }, [selectedUserContext.id, setUserContext]);
 
-  if (selectedUserContext.id) {
-    localStorage.setItem(SELECTED_USER_CONTEXT, JSON.stringify(selectedUserContext));
-  }
+  useEffect(() => {
+    if (selectedUserContext.id) {
+      localStorage.setItem(SELECTED_USER_CONTEXT, JSON.stringify(selectedUserContext));
+    }
+  }, [selectedUserContext.id, selectedUserContext]);
+
+  const logoutUser = (): void => {
+    localStorage.setItem(SELECTED_USER_CONTEXT, JSON.stringify(initialUserValues));
+    setUserContext(initialUserValues);
+  };
 
   const userContext = useMemo(
     () => ({
       selectedUserContext,
       setUserContext,
+      logoutUser,
     }),
     [selectedUserContext]
   );

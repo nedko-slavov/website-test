@@ -12,6 +12,7 @@ import schema from './schema';
 
 const CreateUserForm: FC = () => {
   const { setUserContext } = useUserContext();
+
   const [addUser, { loading, error }] = useMutation(CREATE_USER, {
     onCompleted(user) {
       if (user) {

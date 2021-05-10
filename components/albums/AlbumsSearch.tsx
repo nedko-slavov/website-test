@@ -12,6 +12,7 @@ const useSearch = (value: string): UseSearchReturn => {
   const { loading, data } = useQuery<SearchData, SearchVars>(ALBUM_SEARCH, {
     variables: { options: { search: { q: value } } },
   });
+
   if (value.length > 2) {
     return {
       loading,

@@ -2,18 +2,16 @@ import { FC, MouseEvent } from 'react';
 import Link from 'next/link';
 import router from 'next/router';
 import { useUserContext } from '../../providers/UserProvider';
-import { initialUserValues } from '../../defaults';
 
 const UserLinks: FC = () => {
   const {
     selectedUserContext: { username, id },
-    setUserContext,
+    logoutUser,
   } = useUserContext();
 
   const handleLogut = (e: MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
-    setUserContext(initialUserValues);
-    localStorage.setItem('selectedUserContext', JSON.stringify(initialUserValues));
+    logoutUser();
     router.push('/login');
   };
 

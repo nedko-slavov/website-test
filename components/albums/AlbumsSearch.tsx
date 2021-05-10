@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/client';
 import { ALBUM_SEARCH } from '../../graphql/queries';
@@ -8,17 +8,22 @@ import { Row, Column, Container } from '../grid';
 import { AlbumSearch, UseSearchReturn, SearchData, SearchVars } from '../../types';
 import { useTheme } from '../../providers/ThemeProvider';
 
-const useSearch = (value: string): UseSearchReturn => {
-  const { loading, data } = useQuery<SearchData, SearchVars>(ALBUM_SEARCH, {
-    variables: { options: { search: { q: value } } },
-  });
+type AlbumSearchResults = { id: string; title: string }[] | [];
 
-  if (value.length > 2) {
-    return {
-      loading,
-      data,
-    };
-  }
+type UseSearch = {
+  value: string;
+  onCompleted: (albums: AlbumSearchResults) => void;
+};
+
+const useSearch = ({ value, onCompleted }: UseSearch): UseSearchReturn => {
+  const { loading } = useQuery<SearchData, SearchVars>(ALBUM_SEARCH, {
+    variables: { options: { search: { q: value } } },
+    onCompleted(data) {
+      if (data) {
+        onCompleted(data.albums.data);
+      }
+    },
+  });
 
   return {
     loading,
@@ -26,20 +31,21 @@ const useSearch = (value: string): UseSearchReturn => {
 };
 
 const AlbumsSearch: FC<AlbumSearch> = ({ onAlbumSelect }) => {
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<AlbumSearchResults>([]);
   const [q, setQ] = useState('');
 
   const {
     theme: { current },
   } = useTheme();
 
-  const { data, loading } = useSearch(q);
+  const { loading } = useSearch({
+    value: q,
+    onCompleted: (albums) => {
+      if (!loading) setResults(albums);
 
-  useEffect(() => {
-    if (data && q) setResults(data.albums.data);
-
-    if (!q) setResults([]);
-  }, [data, q]);
+      if (!q) setResults([]);
+    },
+  });
 
   const handleChange = (value: string): void => {
     setQ(value);

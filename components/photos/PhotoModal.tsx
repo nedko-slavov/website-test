@@ -1,16 +1,26 @@
 import { FC } from 'react';
 import PropTypes from 'prop-types';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '../../hooks';
 import Modal from '../Modal';
 import { FullPageLoader } from '../Loaders';
 import { PHOTO } from '../../graphql/queries';
-import { PhotoModalProps } from '../../types';
+import { PhotoModalProps, QueryFindByIdVars } from '../../types';
+
+type PhotoQuery = {
+  photo: {
+    title: string;
+    url: string;
+  };
+};
 
 const PhotoModal: FC<PhotoModalProps> = ({ isOpen, onClose, selectedPhotoId }) => {
-  const { loading, error, data } = useQuery(PHOTO, { variables: { id: selectedPhotoId } });
+  const { loading, data } = useQuery<PhotoQuery, QueryFindByIdVars>(PHOTO, {
+    variables: { id: selectedPhotoId },
+  });
 
   if (loading) return <FullPageLoader />;
-  if (error) return <p>`Error! ${error.message}`</p>;
+
+  if (!(data && data.photo)) return null;
 
   const { title, url } = data.photo;
 

@@ -1,23 +1,36 @@
 import { FC } from 'react';
 import PropTypes from 'prop-types';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '../../hooks';
 import { ALBUM } from '../../graphql/queries';
 import { Column, Row } from '../grid';
 import Modal from '../Modal';
 import Thumbnail from '../Thumbnail';
 import { FullPageLoader } from '../Loaders';
-import { AlbumModalProps, ThumbnailProps } from '../../types';
+import { AlbumModalProps, ThumbnailProps, QueryFindByIdVars } from '../../types';
+
+type Album = {
+  album: {
+    title: string;
+    user: { name: string };
+    photos: { data: ThumbnailProps[] };
+  };
+};
 
 const AlbumModal: FC<AlbumModalProps> = ({ isOpen, onClose, selectedAlbumId }) => {
-  const { loading, error, data } = useQuery(ALBUM, { variables: { id: selectedAlbumId } });
+  const { loading, data } = useQuery<Album, QueryFindByIdVars>(ALBUM, {
+    variables: { id: selectedAlbumId },
+  });
 
   if (loading) return <FullPageLoader />;
-  if (error) return <p>`Error! ${error.message}`</p>;
+
+  if (!(data && data.album)) return null;
+
+  const album = data.album;
   const {
     title,
     user: { name },
     photos,
-  } = data.album;
+  } = album;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title}>

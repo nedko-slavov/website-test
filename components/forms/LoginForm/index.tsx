@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '../../../hooks';
 import { useForm } from 'react-hook-form';
 import { USERS } from '../../../graphql/queries';
 import { useUserContext } from '../../../providers/UserProvider';

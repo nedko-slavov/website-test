@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { Container } from '../../../../components/grid';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '../../../../hooks';
 import { USER_ALBUMS } from '../../../../graphql/queries';
 import { FullPageLoader } from '../../../../components/Loaders';
 import { useUserContext } from '../../../../providers/UserProvider';

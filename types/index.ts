@@ -26,3 +26,4 @@ export type { ButtonProps, ButtonKind } from './button';
 export type { AutoCompleteProps, SearchListResult } from './autoComplete';
 export type { GetId } from './getId';
 export type { Photo, PhotoModalProps } from './photo';
+export type { QueryFindByIdVars } from './query';

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '../../hooks';
 import { ALBUM_SEARCH } from '../../graphql/queries';
 import { AutoComplete } from '../inputsFields';
 import StickyContainer from '../StickyContainer';
@@ -18,7 +18,7 @@ type UseSearch = {
 const useSearch = ({ value, onCompleted }: UseSearch): UseSearchReturn => {
   const { loading } = useQuery<SearchData, SearchVars>(ALBUM_SEARCH, {
     variables: { options: { search: { q: value } } },
-    onCompleted(data) {
+    onCompleted(data: SearchData) {
       if (data) {
         onCompleted(data.albums.data);
       }

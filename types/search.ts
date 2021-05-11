@@ -8,5 +8,12 @@ export type UseSearchReturn = {
 };
 
 export type SearchVars = {
-  options: { search: { q: string } };
+  variables: {
+    options: {
+      search: {
+        q: string;
+      };
+    };
+  };
+  onCompleted: (data: SearchData) => void;
 };

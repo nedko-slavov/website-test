@@ -1,5 +1,5 @@
 import React, { FC, useRef, useState, useEffect, useCallback } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '../hooks';
 import { PHOTOS } from '../graphql/queries';
 import Thumbnail from '../components/Thumbnail';
 import Button from '../components/Button';
@@ -9,8 +9,29 @@ import { GetId } from '../types';
 import PhotoModal from '../components/photos/PhotoModal';
 import { FullPageLoader } from '../components/Loaders';
 
+type PhotosQuery = {
+  photos: {
+    data: Photo[];
+    meta: { totalCount: number };
+    links: {
+      next: { page: number };
+    };
+  };
+};
+
+type PhotosQueryVars = {
+  variables: {
+    options: {
+      paginate: {
+        page: number;
+        limit: number;
+      };
+    };
+  };
+};
+
 const HomePage: FC = () => {
-  const { loading, error, data, fetchMore } = useQuery(PHOTOS, {
+  const { loading, data, fetchMore } = useQuery<PhotosQuery, PhotosQueryVars>(PHOTOS, {
     variables: { options: { paginate: { page: 1, limit: 12 } } },
   });
 
@@ -54,8 +75,7 @@ const HomePage: FC = () => {
   }, [buttonRef]);
 
   if (loading) return <FullPageLoader />;
-
-  if (error) return <p>`Error! ${error.message}`</p>;
+  if (!(data && data.photos.data)) return null;
 
   const photos = data.photos.data;
   const photosTotalCount = data.photos.meta.totalCount;

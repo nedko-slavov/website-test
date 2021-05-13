@@ -3,31 +3,29 @@ import { useReducer, Dispatch } from 'react';
 type InitialPage = { currentPage: number };
 const initialPage: InitialPage = { currentPage: 1 };
 
-interface Paginate {
+interface Paginate<T> {
   pageSize: number;
   pageNumber: number;
-  data: [];
+  data: T[];
 }
 
-type PageData = Record<string, never> | Record<string, never>[];
-
-type PaginateReturn = {
-  pageData: PageData;
+type PaginateReturn<T> = {
+  pageData: T[];
   totalPages: number;
   pagesNumbers: number[];
 };
 
-const paginate = ({ data, pageSize, pageNumber }: Paginate): PaginateReturn => {
+function paginate<T>({ data, pageSize, pageNumber }: Paginate<T>): PaginateReturn<T> {
   const pageData = data.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
   const totalPages = data.length / pageSize;
   const pagesNumbers = Array.from({ length: totalPages }, (value, index) => index + 1);
 
   return {
-    pageData: pageSize === 1 ? pageData[0] : pageData,
+    pageData,
     totalPages,
     pagesNumbers,
   };
-};
+}
 
 type PaginateActionType =
   | { type: 'NEXT_PAGE' }
@@ -47,24 +45,24 @@ const paginateReducer = (state: InitialPage, action: PaginateActionType): Initia
   }
 };
 
-type UsePagination = {
-  data: [];
+type UsePagination<T> = {
+  data: T[];
   pageSize: number;
 };
 
-type UsePaginationReturn = {
-  pageData: PageData;
+type UsePaginationReturn<T> = {
+  pageData: T[];
   totalPages: number;
   pagesNumbers: number[];
   dispatch: Dispatch<PaginateActionType>;
   currentPage: number;
 };
 
-const usePagination = ({ data, pageSize }: UsePagination): UsePaginationReturn => {
+function usePagination<T>({ data, pageSize }: UsePagination<T>): UsePaginationReturn<T> {
   const [state, dispatch] = useReducer(paginateReducer, initialPage);
   const { currentPage } = state;
 
-  const { pageData, totalPages, pagesNumbers } = paginate({
+  const { pageData, totalPages, pagesNumbers } = paginate<T>({
     data,
     pageSize,
     pageNumber: currentPage,
@@ -77,6 +75,6 @@ const usePagination = ({ data, pageSize }: UsePagination): UsePaginationReturn =
     dispatch,
     currentPage,
   };
-};
+}
 
 export default usePagination;

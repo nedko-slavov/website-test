@@ -23,7 +23,7 @@ const AlbumModal: FC<AlbumModalProps> = ({ isOpen, onClose, selectedAlbumId }) =
 
   if (loading) return <FullPageLoader />;
 
-  if (!(data && data.album)) return null;
+  if (!data?.album) return null;
 
   const album = data.album;
   const {

@@ -75,16 +75,16 @@ const HomePage: FC = () => {
   }, [buttonRef]);
 
   if (loading) return <FullPageLoader />;
-  if (!(data && data.photos.data)) return null;
+  if (!data?.photos?.data) return null;
 
   const photos = data.photos.data;
   const photosTotalCount = data.photos.meta.totalCount;
 
   return (
-    <div className="spacing-top">
-      <div className="container">
+    <div className="spacing-both-lg">
+      <Container>
         <h3>Photos total: {photosTotalCount}</h3>
-      </div>
+      </Container>
 
       <PhotoModal
         isOpen={isModalOpen}

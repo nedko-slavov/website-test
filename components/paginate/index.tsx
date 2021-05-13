@@ -1,21 +1,23 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import usePagination from './usePagination';
+import { usePagination } from '../../hooks';
 import PaginateNavigation from './PaginateNavigation';
 
 type PaginationProps<T> = {
-  data: [];
+  data: T[];
   pageSize: number;
-  onPageChange: (pageData: T) => void;
+  onPageChange: (pageData: T[]) => void;
 };
 
 function Pagination<T>({ data, pageSize, onPageChange }: PaginationProps<T>): JSX.Element {
-  const { pageData, totalPages, pagesNumbers, currentPage, dispatch } = usePagination({
+  const { pageData, totalPages, pagesNumbers, currentPage, dispatch } = usePagination<T>({
     data,
     pageSize,
   });
 
-  useEffect(() => onPageChange(pageData as T), [pageData, onPageChange]);
+  useEffect(() => {
+    onPageChange(pageData);
+  }, [onPageChange, pageData]);
 
   const handlePrevPage = (): void => {
     dispatch({

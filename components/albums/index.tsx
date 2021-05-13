@@ -34,7 +34,7 @@ const Albums: FC = () => {
 
   if (loading) return <FullPageLoader />;
 
-  if (!(data && data.albums.data)) return null;
+  if (!data?.albums.data) return null;
 
   const albums = data.albums.data;
 
@@ -42,7 +42,7 @@ const Albums: FC = () => {
     <>
       <AlbumsSearch onAlbumSelect={handleAlbumSelect} />
 
-      <Container>
+      <Container className="spacing-bottom-lg">
         <AlbumsList albums={albums} onSelect={handleAlbumSelect} />
 
         <AlbumModal

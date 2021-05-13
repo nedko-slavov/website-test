@@ -20,7 +20,7 @@ const PhotoModal: FC<PhotoModalProps> = ({ isOpen, onClose, selectedPhotoId }) =
 
   if (loading) return <FullPageLoader />;
 
-  if (!(data && data.photo)) return null;
+  if (!data?.photo) return null;
 
   const { title, url } = data.photo;
 
